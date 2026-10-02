@@ -1,12 +1,12 @@
 # ACLT-KSeF specyfikacja techniczna
 
-Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.6. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
 Kontakt: [kontakt@szymongalka.dev](mailto:kontakt@szymongalka.dev).
 
-Specyfikacja opisuje wykonanie wymagań z [PRD](PRD.md). Priorytetem jest sprawna obsługa wszystkich funkcji przez agenta: krótka instrukcja, spójne operacje i wyniki pozwalające od razu wybrać kolejny krok. Jeden instalowany katalog skilla zawiera własne CLI w Pythonie. OpenClaw uruchamia polecenia, a CLI zachowuje stan operacji i komunikuje się z KSeF. Etapy opisuje [plan](PLAN.md).
+Specyfikacja opisuje wykonanie wymagań z [PRD](PRD.md). Priorytetem jest sprawna obsługa wszystkich funkcji przez agenta: krótka instrukcja, spójne operacje i wyniki pozwalające od razu wybrać kolejny krok. Jeden instalowany katalog skilla zawiera własne CLI w Pythonie. W OpenClaw planowany adapter KSeF w ACLT-Bridge uruchamia CLI i przekazuje poświadczenia. CLI zachowuje stan operacji i komunikuje się z KSeF. Etapy opisuje [plan](PLAN.md).
 
 ## Nazewnictwo i autorstwo
 
@@ -32,17 +32,22 @@ Podglądy HTML i PDF zawierają dyskretną informację „Wygenerowano przez ACL
 ```mermaid
 flowchart LR
     U[Operator] --> A[Agent OpenClaw]
-    A --> S[Instrukcje skilla]
-    S --> C[CLI w paczce skilla]
-    U --> C
+    S[Instrukcje skilla] --> A
+    A -->|Operacja i profil| B[ACLT-Bridge: adapter KSeF]
+    R[SecretRef i dostawca] --> O[Przygotowany snapshot OpenClaw]
+    O --> B
+    B -->|Wywołanie i poświadczenia procesu| C[CLI w paczce skilla]
     C --> K[API KSeF]
     C --> D[SQLite i pliki poza skillem]
-    C --> R[Chronione poświadczenia]
+    C -->|Wynik JSON| B
+    B -->|Wynik po redakcji| A
 ```
 
 | Element | Odpowiedzialność |
 | --- | --- |
 | `SKILL.md` | Rozpoznanie zadania, dobór komendy, zebranie danych, przedstawienie podglądu i wyniku, pozyskanie zgody operatora. |
+| OpenClaw SecretRef | Rozwiązanie referencji i udostępnienie przygotowanych wejść runtime; rotacja przez mechanizmy hosta. |
+| ACLT-Bridge | Adapter KSeF: kontrola parametrów, pobranie przygotowanych sekretów w wywołaniu, uruchomienie właściwego CLI i redakcja wyniku. |
 | CLI | Parsowanie wejścia, walidacja, wykonanie i jednoznaczny wynik dla AI lub człowieka. |
 | Moduły Pythona | Operacje API, przechowywanie, dokumenty FA(3), podglądy i reguły stanu. |
 | SQLite | Metadane, szkice i wersje, zatwierdzenia, operacje oraz punkty kontynuacji. |
@@ -52,11 +57,13 @@ Całe działanie biznesowe przechodzi przez te same funkcje niezależnie od wywo
 
 Nie jest potrzebny serwer aplikacyjny. Jedno wywołanie CLI wykonuje ograniczoną pracę, zapisuje stan i kończy proces. Dłuższa operacja może zwrócić identyfikator oraz stan `processing`, który sprawdza następne wywołanie.
 
+ACLT-Bridge jest zewnętrzną wtyczką OpenClaw. Rdzeń i CLI pozostają w paczce skilla. [Kontrakt integracji](docs/ACLT_BRIDGE.md) opisuje planowany adapter oraz różnice względem dostarczonej wersji mostka 0.2.0, która obecnie rejestruje wyłącznie `aclt_kim`.
+
 ## Interfejs dla agenta
 
 Proponowany cel dla `SKILL.md` to do 600 słów. Instrukcja obejmuje uruchomienie CLI, krótką mapę wszystkich kategorii zadań, interpretację wyniku i istotne zasady zgody oraz odzyskiwania. Opisy pól i rozbudowane przypadki są ładowane dopiero dla konkretnej potrzeby. W normalnym przepływie agent nie czyta dokumentacji projektowej ani specyfikacji API.
 
-Komenda `describe` zwraca zwięzły katalog funkcji dostępnych w zainstalowanej wersji. `describe drafts.prepare` lub odpowiedni identyfikator operacji zwraca argumenty, schemat wejścia, ograniczenia i jeden mały przykład. Opis korzysta z tych samych definicji co parser i walidacja. Nie powstaje osobny rejestr narzędzi ani druga, ręcznie utrzymywana wersja kontraktu komend. Odkrywanie nie wymaga profilu ani dostępu do KSeF.
+Komenda `describe` zwraca zwięzły katalog funkcji dostępnych w zainstalowanej wersji. `describe drafts.prepare` lub odpowiedni identyfikator operacji zwraca argumenty, schemat wejścia, ograniczenia i jeden mały przykład. Opis korzysta z tych samych definicji co parser i walidacja. Schemat planowanego narzędzia `aclt_ksef` w ACLT-Bridge jest sprawdzaną projekcją tego kontraktu, bez drugiej logiki biznesowej. Odkrywanie nie wymaga profilu, sekretów ani dostępu do KSeF.
 
 Codzienny przepływ korzysta z komend realizujących zadanie użytkownika:
 
@@ -66,7 +73,7 @@ Codzienny przepływ korzysta z komend realizujących zadanie użytkownika:
 - `drafts send ID --xml-sha256 SKROT` po zgodzie operatora utrwala zatwierdzenie dokładnej wersji i rozpoczyna kontrolowaną wysyłkę w jednym wywołaniu.
 - `operations status ID` sprawdza istniejącą operację i zachowuje UPO, jeśli jest już dostępne.
 
-Komendy szczegółowe służą edycji i rozwiązywaniu problemów. Komendy zadaniowe wywołują wspólne funkcje Pythona, bez uruchamiania innych komend w podprocesach i bez powielania logiki. Każda komenda wymagająca KSeF sama zapewnia dostęp przy użyciu skonfigurowanych poświadczeń; odczyt lokalny nie uruchamia logowania. `doctor` i ręczne `auth login` nie są obowiązkowymi krokami przed każdą czynnością.
+Komendy szczegółowe służą edycji i rozwiązywaniu problemów. Komendy zadaniowe wywołują wspólne funkcje Pythona, bez uruchamiania innych komend w podprocesach i bez powielania logiki. ACLT-Bridge wykonuje jedno uruchomienie CLI dla operacji agenta. Komenda wymagająca KSeF zapewnia dostęp przy użyciu poświadczeń przekazanych przez mostek i chronionego stanu sesji; odczyt lokalny nie uruchamia logowania ani pobierania sekretów. `doctor` i ręczne `auth login` nie są obowiązkowymi krokami przed każdą czynnością.
 
 Listy domyślnie zwracają do 20 rekordów i pola potrzebne do ich rozpoznania. Szczegóły, XML, podglądy i pełne eksporty pobiera się na żądanie. Importy bibliotek do kryptografii, XML i PDF odbywają się tylko w ścieżkach, które ich potrzebują. Proponowany cel lokalnego odczytu to P95 poniżej jednej sekundy dla strony 20 rekordów w bazie 10 tysięcy faktur, przy rozgrzanym cache systemowym na uzgodnionym serwerze. Pomiar obejmuje start procesu; czas modelu i komunikacji KSeF mierzymy osobno.
 
@@ -92,29 +99,36 @@ aclt-ksef/
   .venv/                 środowisko tworzone podczas instalacji
 ```
 
-`scripts/aclt-ksef` to mały launcher korzystający wyłącznie z Pythona w `.venv` tej paczki. `scripts/ksef.py` uruchamia CLI, a `scripts/aclt_ksef` zawiera jego moduły. Launcher wyznacza katalog paczki względem własnego położenia, nie względem bieżącego katalogu terminala. Brak środowiska powoduje czytelny błąd instalacji; komenda biznesowa nie pobiera zależności automatycznie.
+`scripts/aclt-ksef` to mały launcher korzystający wyłącznie z Pythona w `.venv` tej paczki. `scripts/ksef.py` uruchamia CLI, a `scripts/aclt_ksef` zawiera jego moduły. Instalacja paczki udostępnia moduł `aclt_ksef` w `.venv`, aby adapter mógł uruchomić `.venv/bin/python -I -m aclt_ksef` bez polegania na `PYTHONPATH` lub bieżącym katalogu. Launcher wyznacza katalog paczki względem własnego położenia. Brak środowiska powoduje czytelny błąd instalacji; komenda biznesowa nie pobiera zależności automatycznie.
 
 Repozytorium może dodatkowo zawierać te trzy dokumenty i testy. Archiwum dystrybucyjne zawiera elementy potrzebne do użycia skilla; nie zawiera lokalnej `.venv`, baz, faktur ani poświadczeń. Środowisko powstaje na docelowym Linuxie. CLI nie jest osobnym produktem wymagającym instalacji globalnej.
 
 Propozycja środowiska to Python 3.12 lub nowszy, z wersją testowaną i zapisaną dla wydania. Zależności są przypięte w `uv.lock`; `uv` służy do przygotowania środowiska, a codzienne komendy korzystają bezpośrednio z `.venv`. Jeśli serwer nie ma `uv`, można dostarczyć go lokalnie razem z instalatorem. Nie kopiujemy środowiska z macOS na Linux.
 
-Skill korzysta z wywołań w formie:
+W OpenClaw skill korzysta z planowanego narzędzia `aclt_ksef` w ACLT-Bridge. Przykładowe wywołanie po implementacji adaptera:
+
+```json
+{"operation":"invoices.list","profile":"test","filters":{"direction":"received"},"refresh":true}
+```
+
+Adapter mapuje operację na argumenty CLI i sam przekazuje poświadczenia do procesu. Model nie dostaje sekretu do późniejszego użycia w `exec`. Bezpośrednie wywołania CLI pozostają dostępne dla operacji lokalnych i diagnostyki:
 
 ```text
 "{baseDir}/scripts/aclt-ksef" --json --profile test doctor
-"{baseDir}/scripts/aclt-ksef" --json --profile test sync
+"{baseDir}/scripts/aclt-ksef" --json describe
 "{baseDir}/scripts/aclt-ksef" --json --profile test invoices list --direction received
 ```
 
 OpenClaw udostępnia `{baseDir}` jako odwołanie do folderu skilla. Skill trafia do katalogu odkrywanego przez konkretną instalację OpenClaw; samo wykrycie skilla nie dowodzi dostępu do jego plików i zależności z miejsca wykonywania poleceń. [Format i ładowanie skilli OpenClaw](https://docs.openclaw.ai/tools/skills).
 
-Wdrożenie musi sprawdzić, czy `exec` działa na hoście Gateway, w kontenerze czy na zdalnym węźle. Paczka, Python, dane i poświadczenia muszą być dostępne w tym samym środowisku wykonawczym. Zasady dostępu do skilla i uprawnienia systemowe są osobnymi mechanizmami.
+Wdrożenie musi sprawdzić środowisko procesu uruchamianego przez ACLT-Bridge: dostęp do paczki skilla, jej `.venv` i danych z hosta Gateway. Miejsce wykonywania zwykłego `exec` sprawdzamy osobno dla operacji lokalnych. Mostek nie zakłada automatycznej dostępności plików w kontenerze lub na zdalnym węźle. Zasady dostępu do skilla i uprawnienia systemowe są osobnymi mechanizmami.
 
 ## Zależności
 
 | Narzędzie | Zastosowanie | Moment dodania |
 | --- | --- | --- |
 | Biblioteka standardowa | `argparse`, `json`, `sqlite3`, `decimal`, `hashlib`, `pathlib`, `tomllib`, `zipfile`, bezpieczne zapisy plików | M1 |
+| ACLT-Bridge i SDK hosta OpenClaw | Adapter KSeF, przygotowane wejścia SecretRef i uruchomienie CLI; Node jest wymaganiem mostka, nie rdzenia Pythona | M1 |
 | `httpx` | HTTP, limity czasu i testowalny transport | M1 |
 | `cryptography` | Szyfrowanie wymagane przez API i odczyt certyfikatów | M1 |
 | `lxml` | XML i walidacja lokalnym XSD | M2 |
@@ -127,9 +141,13 @@ Dokładne wersje i zgodność bibliotek zostaną ustalone podczas implementacji.
 
 Operator wskazuje katalog konfiguracji oraz katalog danych. Proponowane wartości domyślne to katalogi XDG użytkownika wykonującego CLI: `~/.config/aclt-ksef` i `~/.local/share/aclt-ksef`. Jawne `ACLT_KSEF_CONFIG_DIR` i `ACLT_KSEF_DATA_DIR` pozwalają dopasować je do Linuxa i kontenera. Zmienne nie zawierają sekretów.
 
-Konfiguracja TOML definiuje profile. Profil ma identyfikator, środowisko `TEST`, `DEMO` lub `PROD`, NIP kontekstu, metodę logowania, odwołania do poświadczeń i role objęte synchronizacją. Dane firmy i zasady numeracji są osobną częścią konfiguracji. Identyfikator profilu jest stabilny; zmiana środowiska lub NIP tworzy nowy profil.
+Konfiguracja TOML definiuje profile. Profil ma identyfikator, środowisko `TEST`, `DEMO` lub `PROD`, NIP kontekstu, metodę logowania, identyfikator powiązania z adapterem ACLT-Bridge i role objęte synchronizacją. SecretRefs konfiguruje administrator po stronie mostka i OpenClaw. Model może wybrać udostępniony profil, ale nie dowolną referencję, dostawcę lub ścieżkę programu. Dane firmy i zasady numeracji są osobną częścią konfiguracji. Identyfikator profilu jest stabilny; zmiana środowiska lub NIP tworzy nowy profil.
 
-Poświadczenia są wskazywane przez ścieżki do chronionych plików poza paczką skilla. Propozycja pierwszego wdrożenia to uprawnienia `0700` dla katalogu i `0600` dla plików; systemd credentials można wykorzystać, gdy zapewnia je środowisko uruchamiające. Tokeny dostępu i odświeżania również należą do chronionego magazynu, nie do zwykłych tabel faktur. Pierwsza wersja nie wymaga usługi desktopowego keyringu na Linuxie.
+Poświadczenia źródłowe do KSeF są dostarczane wyłącznie przez ACLT-Bridge z przygotowanych wejść OpenClaw. W M1 adapter przekazuje token KSeF w dedykowanym środowisku procesu CLI, bez shella, wartości w argv i dziedziczenia całego środowiska Gateway. CLI nie odczytuje dostawcy SecretRef ani nie zapisuje trwałej kopii tokena źródłowego. Brak wymaganych sekretów blokuje operację zdalną; nie ma fallbacku do pliku, keyringu lub środowiska procesu rodzica. Odczyt lokalny i discovery działają bez sekretów.
+
+Tokeny `accessToken` i `refreshToken` wydane przez KSeF są stanem sesji, który nie pochodzi z SecretRef i nie jest magazynowany przez ACLT-Bridge. Propozycja M1 to chroniony stan sesji poza paczką: katalog `0700`, pliki `0600`, osobno per profil, środowisko, NIP i zestaw poświadczeń. Zmiana poświadczeń przekazanych po udanym reload unieważnia poprzedni stan logowania. Sposób zapisu tego stanu jest decyzją D06 przed M1; wynik CLI nigdy nie zawiera wartości tokenów.
+
+Materiał klucza prywatnego i ewentualne hasło do certyfikatu w M5 również przechodzą przez adapter. Format przekazania oraz limity ustalamy przed M5. Walidacja loginu i hasła KiM nie jest walidacją tokena ani wielowierszowego PEM. Rotacja poświadczeń źródłowych wymaga udanego reload OpenClaw i sprawdzenia kolejnego wywołania; mostek sam nie pobiera ponownie wartości od dostawcy. [Model runtime sekretów OpenClaw](https://docs.openclaw.ai/gateway/secrets/runtime-model), [obsługa i reload](https://docs.openclaw.ai/gateway/secrets/operations).
 
 Każdy profil ma własny katalog danych i bazę. Rekordy utrwalają również środowisko i NIP jako część kontekstu operacji. Odwołania do XML i UPO są względne wobec katalogu danych profilu. Instalacja i aktualizacja skilla nie zmieniają danych ani sekretów. Usunięcie paczki zachowuje dane; ich osobne usunięcie jest czynnością operatora.
 
@@ -167,6 +185,8 @@ Dane dokumentów trafiają przez `--input PLIK` lub standardowe wejście, nie pr
 | `backup create`, `backup restore` | Spójna kopia i odtworzenie do nowego katalogu | M5 |
 
 Lista komend jest kontraktem planowanego wydania. `--help` opisuje wyłącznie zaimplementowane komendy. Pierwsze `sync` wymaga daty startowej; agent nie wybiera samodzielnie nieograniczonego pobierania całej historii.
+
+Adapter tworzy `invocation_id` przed uruchomieniem procesu. CLI zapisuje powiązanie tego identyfikatora z operacją przed wywołaniem zdalnym, a wynik zwraca go wraz z ID operacji, jeśli powstała. `operations recover --invocation-id ID` umożliwia odzyskiwanie po przerwaniu procesu, gdy mostek nie otrzymał ID operacji w stdout. Podstawowy zapis wywołań powstaje w M1 dla uwierzytelniania, w M2 dla eksportu, a w M3 obejmuje wysyłkę.
 
 W trybie ludzkim CLI wypisuje czytelne tabele i komunikaty po polsku. W trybie `--json` stdout zawiera jeden dokument JSON, również dla błędów parsowania. Logi trafiają do stderr. `--help` i `--version` są udokumentowanymi wyjątkami tekstowymi. `doctor` działa również przy uszkodzonej konfiguracji i nie ujawnia wartości poświadczeń.
 
@@ -224,6 +244,8 @@ M1 realizuje logowanie istniejącym tokenem KSeF: pobranie challenge, zaszyfrowa
 Logowanie certyfikatem w M5 przygotowuje i podpisuje `AuthTokenRequest` zgodnie z wymaganiami XAdES. Najpierw sprawdzamy zgodność wybranej biblioteki na TEST. Sukces z samopodpisanym certyfikatem nie dowodzi obsługi rzeczywistego certyfikatu i uprawnień DEMO lub PROD. [Wymagania uwierzytelniania MF](https://github.com/CIRFMF/ksef-api/blob/main/uwierzytelnianie.md).
 
 Nie implementujemy w pierwszym wydaniu zarządzania uprawnieniami ani wydawania tokenów i certyfikatów. Operator dostarcza gotowe poświadczenia odpowiedniego środowiska. Wygasłe i unieważnione poświadczenie daje czytelny błąd; CLI nie zastępuje go automatycznie innym profilem.
+
+Operator konfiguruje te poświadczenia jako wejścia SecretRef dla adaptera KSeF w ACLT-Bridge. Samo ustawienie `cliPath` w adapterze KiM 0.2.0 nie realizuje tego kontraktu.
 
 ### Synchronizacja
 
@@ -298,6 +320,8 @@ Stan `sending` jest trwale zapisywany przed operacją sieciową. Zatwierdzenie n
 | HTTP 400 wysyłki | Jeśli odpowiedź jednoznacznie odrzuca żądanie, zapis błędu; bez automatycznego ponowienia. |
 | Timeout, zerwane połączenie lub niejednoznaczne 5xx po rozpoczęciu wysyłki | `SEND_UNCERTAIN`, zachowanie referencji i kontrolowane odzyskiwanie. |
 | HTTP 401 lub 403 | Odnowienie tylko wtedy, gdy semantyka operacji na to pozwala; brak powtórzenia niepewnej wysyłki. |
+| Brak przygotowanego sekretu w ACLT-Bridge | Błąd `CREDENTIALS_UNAVAILABLE`, `next_action: configure`; operacja zdalna nie jest rozpoczynana. |
+| Przerwanie procesu przez mostek bez poprawnego wyniku | Bez ujawniania stderr; `BRIDGE_EXECUTION_INTERRUPTED` i odzyskiwanie zapisanej operacji. Rozpoczęta wysyłka wymaga rozstrzygnięcia stanu, nie ponowienia. |
 | Brak pliku, brak miejsca lub uszkodzona baza | Ustrukturyzowany błąd; brak przesunięcia punktu kontynuacji i brak utraty poprzedniego pliku. |
 | Uszkodzona paczka lub niespójne metadane | Zachowanie ostatniej dobrej granicy i raport problemu. |
 | Równoległa komenda zmieniająca ten sam stan | Konflikt albo użycie istniejącej operacji, bez drugiej wysyłki. |
@@ -310,11 +334,13 @@ Parser XML nie pobiera zewnętrznych encji, nie wykonuje DTD i nie odwołuje si�
 
 Adresy przekazane przez API są weryfikowane względem dozwolonych hostów właściwego środowiska, ustalonych z aktualnego kontraktu. Nagłówki z tokenami nie są przenoszone do pobierania plików z innego hosta. Logi filtrują sekrety, nagłówki autoryzacji i podpisane adresy pobierania.
 
-Agent z dostępem do powłoki tego samego użytkownika może mieć dostęp do chronionych plików. Instrukcja skilla i uprawnienia `0600` nie tworzą izolacji od tego procesu. Jeśli potrzebna będzie mocniejsza separacja poświadczeń lub zgód, należy osobno zaprojektować uprawnienia procesu i środowiska wykonawczego.
+ACLT-Bridge ogranicza ekspozycję poświadczeń na interfejsie modelu, ale odbiorca zna wartości sekretów. Proces tego samego uprawnionego użytkownika może mieć dostęp do środowiska, pamięci lub chronionego stanu sesji. Redakcja wyniku oraz uprawnienia `0600` nie tworzą izolacji procesu. Jeśli potrzebna będzie mocniejsza separacja poświadczeń lub zgód, należy osobno zaprojektować uprawnienia procesu i środowiska wykonawczego.
 
 ## Testy i odbiór techniczny
 
 Testy obejmują rzeczywiste ryzyka: granice i obcięcie paczek, deduplikację, utrwalenie postępu, kwoty, XSD, tożsamość zatwierdzonego XML, równoległość procesów i niepewne wysyłki. Parser błędów i JSON sprawdzamy także dla błędów argumentów i lokalnych plików. Testy transportu nie łączą się automatycznie z PROD.
+
+Testy adaptera sprawdzają niedostępne sekrety, dobór profilu, rotację po reload, brak sekretów w argv i wynikach, uruchomienie właściwego `.venv`, obsługę kodów zakończenia 2–9 oraz timeout i anulowanie po rozpoczęciu wysyłki. Osobny odbiór w Gateway potwierdza, że załadowano wersję mostka z adapterem KSeF i zgodnym kontraktem SecretRef.
 
 Odbiór interfejsu obejmuje nową sesję agenta, która otrzymuje skill, skonfigurowany profil i zadanie użytkownika. Mierzymy poprawność wyboru komendy, liczbę wywołań CLI, potrzebę dodatkowych odczytów instrukcji, rozmiar wyników i czas lokalnej pracy. Dla każdej dostępnej funkcji sprawdzamy ścieżkę odkrycia i poprawność opisu wejścia; rozmowy kontrolne obejmują zadania codzienne oraz reakcję na brak danych i niepewną wysyłkę. Wyniki pokazują też użyty model i konfigurację sesji. Sama poprawność backendu nie zamyka odbioru Q09.
 
@@ -334,5 +360,8 @@ Osobny [snapshot acli-ksef/ASEF](materials/acli-ksef/README.md) jest materiałem
 - [Bieżące stanowisko MF o certyfikatach i tokenach](https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/certyfikaty-ksef/).
 - [Ładowanie i format skilli OpenClaw](https://docs.openclaw.ai/tools/skills).
 - [Miejsce wykonywania poleceń OpenClaw](https://docs.openclaw.ai/tools/exec).
+- [Projekt integracji z dostarczonym ACLT-Bridge 0.2.0](docs/ACLT_BRIDGE.md).
+- [Model runtime sekretów OpenClaw](https://docs.openclaw.ai/gateway/secrets/runtime-model).
+- [Operacje i rotacja sekretów OpenClaw](https://docs.openclaw.ai/gateway/secrets/operations).
 
-Szczegóły pól wejścia faktury, reguł podatkowych i zaokrągleń oraz konkretna konfiguracja serwera wymagają uzupełnienia w etapach wskazanych w planie. Nie stanowią potwierdzonej implementacji w wersji 0.5 dokumentów.
+Szczegóły pól wejścia faktury, reguł podatkowych i zaokrągleń oraz konkretna konfiguracja serwera wymagają uzupełnienia w etapach wskazanych w planie. Nie stanowią potwierdzonej implementacji w wersji 0.6 dokumentów.

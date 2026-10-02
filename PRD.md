@@ -1,6 +1,6 @@
 # ACLT-KSeF PRD
 
-Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.6. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
@@ -20,6 +20,7 @@ Głównym celem ACLT-KSeF jest szybka i sprawna obsługa całego zakresu skilla 
 | Produkt | Skill dla AI z CLI zawartym w paczce skilla |
 | Technologia CLI | Python |
 | Środowisko docelowe | Linux, głównie OpenClaw |
+| Dostarczanie poświadczeń | ACLT-Bridge: przygotowane wejścia OpenClaw SecretRef przekazywane do procesu CLI, bez ujawniania wartości modelowi. |
 | Zakres docelowy | Pobieranie oraz wystawianie faktur i korekt |
 | Główny priorytet | Agent szybko odnajduje i sprawnie obsługuje wszystkie dostępne funkcje skilla. |
 | Sposób realizacji | Etapami, zaczynając od PRD, specyfikacji i planu |
@@ -45,6 +46,8 @@ Logowanie, synchronizacja, walidacja, obliczenia i stan wysyłki są obsługiwan
 
 Skill odpowiada za rozmowę, wybór operacji i przedstawienie wyniku. CLI odpowiada za dane i wykonanie. Użytkownik może uruchomić to samo CLI ręcznie, bez pośrednictwa modelu. Wynik działania nie powinien zależeć od sposobu sformułowania odpowiedzi przez AI.
 
+W OpenClaw agent wywołuje planowany adapter KSeF w ACLT-Bridge, który uruchamia CLI zawarte w skillu. Mostek odpowiada za przekazanie poświadczeń i redakcję wyniku; logika KSeF pozostaje w Pythonie. Ręczne CLI obsługuje operacje lokalne bez sekretów. Operacje zdalne wymagają przekazania poświadczeń przez mostek. Szczegóły opisuje [projekt integracji](docs/ACLT_BRIDGE.md).
+
 ## Użytkownicy i sposób użycia
 
 Podstawowym użytkownikiem jest operator firmy rozmawiający z agentem OpenClaw. Operator serwera instaluje paczkę i konfiguruje dostęp do KSeF. Role te może pełnić jedna osoba.
@@ -67,9 +70,11 @@ Daty wystawienia, przyjęcia w KSeF i lokalnego pobrania muszą być rozróżnia
 
 CLI automatycznie korzysta z zapisanego dostępu i odnawia go, kiedy to potrzebne. Przygotowanie dokumentu obejmuje walidację i podgląd w jednym wywołaniu. Wynik przedstawia wszystkie wykryte braki danych razem oraz wskazuje następny dozwolony krok. Listy są ograniczone i korzystają z lokalnego zbioru; odświeżenie odbywa się na wyraźne żądanie.
 
+Wartości poświadczeń źródłowych dostarcza ACLT-Bridge. Zapisany dostęp oznacza stan sesji uzyskany z KSeF, nie kopię tokena KSeF lub klucza prywatnego z SecretRef. Jedno wywołanie adaptera odpowiada jednemu uruchomieniu CLI; agent nie wykonuje osobnego pobierania sekretu ani logowania przed zadaniem.
+
 Proponowane cele odbioru dla skonfigurowanej instalacji i poprawnych danych:
 
-| Zadanie | Docelowa liczba wywołań CLI przez agenta |
+| Zadanie | Docelowa liczba wywołań operacji przez agenta |
 | --- | --- |
 | Wyświetlenie istniejących faktur lub szczegółów dokumentu | 1 |
 | Pobranie nowych faktur i pokazanie odfiltrowanej listy | 1, jeśli synchronizacja zakończy się w budżecie czasu komendy |
@@ -85,7 +90,7 @@ Oczekiwanie na KSeF, uzupełnienie danych i rozmowa o zgodzie mogą wymagać dal
 | --- | --- | --- |
 | F01 | Dostarczenie skilla z CLI | Jedna paczka zawiera `SKILL.md`, kod CLI i opis zależności; agent uruchamia CLI z tej paczki. |
 | F02 | Profile i diagnostyka | Operator widzi środowisko, NIP, stan konfiguracji i gotowość do operacji. |
-| F03 | Uwierzytelnianie | Logowanie tokenem KSeF oraz docelowo certyfikatem uwierzytelniającym; odnowienie sesji i czytelne błędy uprawnień. |
+| F03 | Uwierzytelnianie | Poświadczenia źródłowe przez ACLT-Bridge; logowanie tokenem KSeF oraz docelowo certyfikatem uwierzytelniającym; odnowienie sesji i czytelne błędy uprawnień. |
 | F04 | Synchronizacja | Pobranie dostępnych faktur wraz z oryginalnymi XML i metadanymi; wznowienie po przerwaniu. |
 | F05 | Wyszukiwanie i listy | Wystawione, otrzymane i korekty; filtry po datach, numerach, NIP i kwotach; informacje o aktualności zbioru. |
 | F06 | Odczyt i eksport | Szczegóły faktury, oryginalny XML, podgląd HTML, docelowo PDF oraz zestawienie CSV. |
@@ -140,7 +145,7 @@ Po przerwaniu synchronizacji ponowne uruchomienie wznawia pobieranie bez utraty 
 | Q01 | Przewidywalność dla AI | Wersjonowany JSON, stabilne kody błędów i kod zakończenia procesu; brak tekstu diagnostycznego w strumieniu JSON. |
 | Q02 | Trwałość | Restart i awaria procesu nie usuwają zapisanych dokumentów, zatwierdzeń ani referencji operacji. |
 | Q03 | Poprawność kwot | Obliczenia dziesiętne i jawne reguły zaokrągleń, sprawdzone na uzgodnionych przypadkach. |
-| Q04 | Poufność | Dane i sekrety poza paczką skilla; sekrety nie trafiają do rozmowy, argumentów poleceń ani logów. |
+| Q04 | Poufność | Dane poza paczką skilla; poświadczenia źródłowe wyłącznie przez ACLT-Bridge, bez trwałej kopii w CLI. Sekrety nie trafiają do rozmowy, argumentów poleceń ani logów; wynik podlega redakcji. |
 | Q05 | Oddzielenie środowisk | Dokumenty, poświadczenia, zatwierdzenia i postęp pobierania przypisane do profilu i środowiska. |
 | Q06 | Ograniczenie skutków błędu | Obsługa limitów API, kontrolowane ponawianie odczytu i brak automatycznego ponowienia niepewnej wysyłki. |
 | Q07 | Utrzymanie | Odtwarzalna instalacja zależności, aktualizacja skilla zachowująca dane, działanie na docelowym Linuxie. |
@@ -159,6 +164,7 @@ Integracje GUS, biała lista VAT, rejestry księgowe, płatności bankowe, autom
 ## Kryteria odbioru
 
 - **Odbiór paczki:** po instalacji ze wskazanego katalogu skill wywołuje zawarte CLI, które działa niezależnie od bieżącego katalogu terminala.
+- **Odbiór mostka:** adapter KSeF uruchamia CLI ze skilla z właściwymi poświadczeniami profilu. Brak wymaganych przygotowanych sekretów blokuje operację zdalną. Udany reload OpenClaw udostępnia nową wartość kolejnemu wywołaniu; stdout, błędy, logi i argumenty nie ujawniają syntetycznych sekretów. Mostek nie ponawia automatycznie wysyłki.
 - **Odbiór brandingu:** paczka i dokumentacja używają nazwy ACLT-KSeF; skill, pomoc CLI oraz podglądy wskazują autora projektu. Branding nie zmienia oryginalnego XML ani danych stron faktury.
 - **Odbiór obsługi przez AI:** agent w nowej sesji, z instrukcją skilla i przygotowaną konfiguracją, realizuje reprezentatywne zadania odczytu, wystawiania, korekty i sprawdzania stanu; korzysta z opisu pól tylko wtedy, gdy go potrzebuje, i mieści się w zakładanej liczbie wywołań dla poprawnych danych. Każda dostępna funkcja ma jednoznaczną drogę odkrycia.
 - **Odbiór pobierania:** kontrolny zbiór TEST jest kompletny dla zadeklarowanych ról; ponowna i przerwana synchronizacja nie pomija dokumentów i nie tworzy duplikatów.
@@ -178,6 +184,7 @@ Testy lokalne, integracja TEST, walidacja DEMO i działanie PROD stanowią odrę
 | D02 | Pierwszy generator: faktury krajowe PLN i opisane korekty | Ogólny zakres w M0, szczegółowe warianty przed projektowaniem danych faktury w M3. |
 | D03 | Token jako pierwsza metoda logowania; certyfikat przed zamknięciem zakresu 1.0 | Przed M1; termin certyfikatu można przyspieszyć, jeśli operator już go używa. |
 | D04 | Dane firmy, schemat numeracji oraz katalog przypadków VAT dostarcza operator | Przed M3. |
-| D05 | Wersja OpenClaw, dystrybucja i architektura Linuxa oraz miejsce wykonywania `exec` | Przed odbiorem na serwerze w M5. |
+| D05 | Wersja OpenClaw i ACLT-Bridge, dystrybucja i architektura Linuxa oraz środowisko procesu mostka i lokalnego `exec` | Wstępna zgodność przed M1; pełny odbiór na serwerze w M5. |
+| D06 | Chroniony stan tokenów sesji wydanych przez KSeF, osobny od poświadczeń źródłowych SecretRef; sposób przekazania materiału certyfikatu przez adapter | Stan sesji przed M1; format materiału certyfikatu przed M5. |
 
 Aktualna strona MF informuje o decyzji utrzymania tokenów bezterminowo i zapowiadanej zmianie rozporządzenia. Proponowana architektura obsługuje token i certyfikat; nie zakłada automatycznego wyłączenia tokenów w 2027 roku. Stan wymagań należy sprawdzić ponownie przed wdrożeniem PROD. [Certyfikaty i tokeny MF](https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/certyfikaty-ksef/).

@@ -4,15 +4,18 @@ Skill dla agentów AI z własnym CLI w Pythonie do obsługi Krajowego Systemu e-
 
 Priorytetem jest szybka obsługa przez agenta: krótka instrukcja, łatwe odkrywanie funkcji, kompletne zadania wykonywane przez CLI i przewidywalne wyniki JSON.
 
+Poświadczenia do KSeF będą przekazywane przez **ACLT-Bridge**, z przygotowanych wejść OpenClaw SecretRef do procesu CLI. Model wybiera operację i profil bez otrzymywania wartości sekretów. Integracja wymaga dodania adaptera KSeF do mostka; dostarczona wersja ACLT-Bridge 0.2.0 obsługuje obecnie KiM.
+
 ## Stan projektu
 
-Projekt jest w fazie planowania. PRD, specyfikacja i plan mają wersję **0.5** i status „projekt do przeglądu”. Skill i CLI ACLT-KSeF pozostają do zaimplementowania. Repozytorium zawiera dokumentację oraz osobno oznaczone materiały inspiracyjne ze źródłowego `acli-ksef`/ASEF.
+Projekt jest w fazie planowania. PRD, specyfikacja i plan mają wersję **0.6** i status „projekt do przeglądu”. Skill i CLI ACLT-KSeF oraz integracja adaptera KSeF z ACLT-Bridge pozostają do zaimplementowania. Repozytorium zawiera dokumentację oraz osobno oznaczone materiały inspiracyjne ze źródłowego `acli-ksef`/ASEF.
 
 ## Dokumentacja
 
 - [PRD](PRD.md) — cele produktu, zakres i kryteria odbioru.
 - [Specyfikacja techniczna](SPECYFIKACJA.md) — architektura, kontrakt CLI, dane i integracja KSeF.
 - [Plan realizacji](PLAN.md) — etapy M0–M6, zależności i wymagane dowody wykonania.
+- [Integracja ACLT-Bridge](docs/ACLT_BRIDGE.md) — źródło poświadczeń, projekt adaptera i warunki odbioru.
 - [Materiały inspiracyjne acli-ksef](materials/acli-ksef/README.md) — przejrzany snapshot, pochodzenie i zakres publikacji.
 - [Analiza rozwiązań do wykorzystania](materials/acli-ksef/ANALIZA.md) — co warto adaptować i w którym etapie.
 

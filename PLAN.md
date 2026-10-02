@@ -1,6 +1,6 @@
 # ACLT-KSeF plan realizacji
 
-Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.6. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
@@ -10,12 +10,12 @@ Plan prowadzi od uzgodnienia [PRD](PRD.md) i [specyfikacji](SPECYFIKACJA.md) do 
 
 ## Stan prac
 
-Dokumenty PRD, specyfikacja i plan są w wersji 0.5. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLT-KSeF, podpis „Autor projektu: Szymon Gałka”, kontakt `kontakt@szymongalka.dev`, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
+Dokumenty PRD, specyfikacja i plan są w wersji 0.6. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLT-KSeF, podpis „Autor projektu: Szymon Gałka”, kontakt `kontakt@szymongalka.dev`, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, dostarczanie poświadczeń przez ACLT-Bridge, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
 
 | Etap | Rezultat | Zależność | Stan |
 | --- | --- | --- | --- |
-| M0 | PRD, specyfikacja i plan uzgodnione | Decyzje D01–D03 | Dokumenty przygotowane do przeglądu |
-| M1 | Instalowalna paczka skilla, CLI i logowanie tokenem | M0 | Zaplanowany |
+| M0 | PRD, specyfikacja i plan uzgodnione | Decyzje D01–D03 i część D06 dotycząca stanu sesji | Dokumenty przygotowane do przeglądu |
+| M1 | Paczka skilla, CLI, adapter KSeF w ACLT-Bridge i logowanie tokenem | M0, zgodny runtime OpenClaw i adapter mostka | Zaplanowany |
 | M2 | Odbiór, synchronizacja, przeglądanie i eksport | M1 | Zaplanowany |
 | M3 | Przygotowanie i wysyłka faktury z numerem KSeF i UPO | M2 oraz D02 i D04 | Zaplanowany |
 | M4 | Korekty | M3 | Zaplanowany |
@@ -26,6 +26,8 @@ Etap uważa się za odebrany po uzyskaniu opisanych dowodów. Zakończenie prac 
 
 [Materiały źródłowego acli-ksef](materials/acli-ksef/README.md) stanowią dodatkową inspirację. [Analiza](materials/acli-ksef/ANALIZA.md) wiąże przydatne rozwiązania i scenariusze testowe z etapami M1–M5. Obecność kodu w tym katalogu nie oznacza wykonania żadnego etapu implementacji ACLT-KSeF.
 
+Dostarczony ACLT-Bridge 0.2.0 zawiera adapter KiM. Dodanie adaptera KSeF jest zależnością M1 i wymaga zmian w projekcie mostka oraz uzgodnionego kontraktu odbiorcy w tym repozytorium. [Projekt integracji](docs/ACLT_BRIDGE.md) powstał po przeglądzie paczki źródłowej; adapter KSeF i jego działanie w Gateway nie zostały jeszcze wykonane ani sprawdzone.
+
 ## M0 Uzgodnienie dokumentów
 
 Rezultat: jedna spójna podstawa wykonania produktu.
@@ -35,21 +37,25 @@ Do uzgodnienia teraz:
 1. Jeden operator i jeden NIP w pierwszym wdrożeniu, z osobnymi profilami TEST, DEMO i PROD.
 2. Pierwszy generator obejmujący faktury krajowe w PLN i wskazane korekty; warianty potrzebne firmie mają pierwszeństwo przed proponowanym backlogiem.
 3. Token jako pierwsza metoda logowania; certyfikat uwierzytelniający w zakresie docelowym, z możliwością wcześniejszej realizacji.
+4. Kontrakt adaptera KSeF w ACLT-Bridge i chroniony stan sesji wydany przez KSeF, oddzielony od poświadczeń źródłowych SecretRef (D06).
 
 Dane firmy, numeracja, przypadki VAT oraz szczegóły serwera można uzupełnić przed etapami, które ich potrzebują. Odbiór M0 oznacza potwierdzenie architektury i pierwszego zakresu; dokumenty stają się wtedy wersją uzgodnioną.
 
 ## M1 Paczka skilla i pierwsza integracja
 
-Rezultat: skill zawiera działające CLI, a token pozwala zalogować się do wybranego środowiska.
+Rezultat: skill zawiera działające CLI, a adapter ACLT-Bridge przekazuje token KSeF i pozwala zalogować się do wybranego środowiska bez ujawniania go modelowi.
 
 Prace:
 
 1. Przygotować krótki `SKILL.md` z mapą wszystkich dostępnych zadań, launcher `scripts/aclt-ksef`, moduły Pythona, `pyproject.toml` i przypięte zależności. Cel instrukcji wejściowej to do 600 słów. Metadane, skill, pomoc i wersja CLI używają nazwy ACLT-KSeF oraz podpisu „Autor projektu: Szymon Gałka”, bez odmiany nazwiska; metadane, skill i pomoc zawierają kontakt `kontakt@szymongalka.dev`. Metadane paczki deklarują `GPL-3.0-only`, a wydanie zawiera pełny tekst LICENSE.
 2. Dodać `doctor`, `describe`, profile, wspólny kontrakt JSON z `next_action` i obsługę błędów argumentów oraz plików. Opis komendy i parser korzystają z tych samych definicji.
-3. Wprowadzić zewnętrzne katalogi konfiguracji i danych, SQLite oraz chroniony magazyn poświadczeń i stanu logowania.
+3. Wprowadzić zewnętrzne katalogi konfiguracji i danych, SQLite oraz chroniony stan sesji według D06. Poświadczenia źródłowe są pobierane wyłącznie przez ACLT-Bridge; CLI nie zapisuje ich kopii ani nie odczytuje dostawców SecretRef.
 4. Zapisem źródła, wersji i SHA-256 przypiąć używany kontrakt API; sprawdzić wymagane operacje właściwego środowiska.
 5. Zrealizować logowanie istniejącym tokenem KSeF, sprawdzanie stanu i odświeżanie dostępu. Sprawdzić odzyskiwanie niepewnej operacji odebrania tokenów.
 6. Przeprowadzić próbę na TEST z poświadczeniem dostarczonym przez operatora. Ocenić wcześnie wymagania podpisu certyfikatem i zgodność kandydata biblioteki, aby ryzyko XAdES było znane przed M5.
+7. W projekcie ACLT-Bridge dodać adapter KSeF: niezależną konfigurację profili i SecretRefs, manifest, rejestrację planowanego narzędzia `aclt_ksef`, zamknięte mapowanie operacji, uruchomienie Pythona z `.venv` skilla i przekazanie tokena do procesu. Adapter nie wymaga konfiguracji KiM.
+8. Obsłużyć poprawne wyniki JSON także dla kodów błędów CLI 2–9, redakcję, limity, anulowanie i identyfikator wywołania pozwalający odzyskać operację po przerwaniu procesu. Nie przenosić reguł Basic Auth ani interpretacji błędów KiM.
+9. Sprawdzić kontrakt adaptera z syntetycznymi sekretami oraz aktywnym runtime OpenClaw: brak sekretu, profile TEST/PROD, udany reload i zmiana wartości, brak sekretów w wynikach i argv, brak fallbacku, poprawny interpreter. Zapisać wersję mostka i OpenClaw; minimalna zgodna wersja nie wynika z README 0.2.0.
 
 Odbiór:
 
@@ -59,6 +65,8 @@ Odbiór:
 - Każda dostępna funkcja jest odkrywalna przez mapę skilla i `describe`; typowa czynność nie wymaga czytania dokumentacji projektowej. Agent nie wykonuje diagnostyki ani osobnego logowania przed każdą komendą.
 - `--json` pozostaje poprawnym JSON również przy błędnej składni i brakującym pliku.
 - Konfiguracja TEST i PROD jest odseparowana; wartości sekretów nie występują w wynikach ani logach.
+- Wywołanie adaptera uruchamia CLI z paczki skilla; discovery i odczyt lokalny nie wymagają sekretów, a brak sekretów blokuje operację zdalną przed uruchomieniem odbiorcy. Rotacja po udanym reload zmienia wartości następnego wywołania i unieważnia niezgodny stan sesji.
+- Wynik błędu zachowuje kontrakt JSON i dozwolony kod; wrapper nie ujawnia stderr, argumentów ani częściowego wyjścia. Przerwanie procesu zachowuje możliwość sprawdzenia zapisanej operacji i nie uruchamia automatycznego ponowienia.
 - Lokalne testy transportu obejmują logowanie, odnowienie, brak uprawnień i niepewne odebranie tokenów.
 - Osobny zapis próby TEST potwierdza rzeczywiste logowanie. Bez poświadczeń ten punkt pozostaje otwarty.
 
@@ -101,7 +109,7 @@ Prace:
 3. Dodać walidację danych, XSD i sum oraz podgląd wygenerowany z utrwalonego XML. Udostępnić je wraz z przygotowaniem szkicu przez `drafts prepare`, zwracające wszystkie wykryte braki danych razem.
 4. Wprowadzić zatwierdzenie związane ze skrótem XML, ID, wersją i kontekstem; skill przedstawia dokument i pozyskuje zgodę. `drafts send --xml-sha256` zapisuje zgodę i rozpoczyna wysyłkę w jednym wywołaniu po decyzji operatora.
 5. Zrealizować sesję online, szyfrowanie, trwałe zapisanie stanu przed wysyłką, sprawdzanie statusu, zamknięcie sesji i pobranie UPO.
-6. Dodać historię zdarzeń, ochronę między procesami i odzyskiwanie niepewnych wysyłek.
+6. Dodać historię zdarzeń, ochronę między procesami i odzyskiwanie niepewnych wysyłek, także po timeout lub anulowaniu przez ACLT-Bridge. Identyfikator wywołania pozwala odnaleźć operację bez otrzymanej odpowiedzi CLI.
 7. Przeprowadzić kontrolowany pełny przebieg TEST na uzgodnionych syntetycznych przykładach.
 
 Odbiór:
@@ -135,8 +143,8 @@ Rezultat: kompletna paczka działa przez docelowego agenta OpenClaw, obsługuje 
 Prace:
 
 1. Zweryfikować wersję OpenClaw, dystrybucję i architekturę Linuxa, użytkownika procesu oraz faktyczne środowisko `exec`.
-2. Zainstalować paczkę i zależności na serwerze, dopasować ścieżki i sprawdzić widoczność skilla oraz dostęp do CLI, danych i poświadczeń.
-3. Zrealizować i sprawdzić logowanie certyfikatem uwierzytelniającym, w tym błędy ważności i uprawnień. Udokumentować wynik wybranego stosu XAdES.
+2. Zainstalować paczkę i zgodną wersję ACLT-Bridge na serwerze, dopasować ścieżki i sprawdzić widoczność skilla, narzędzia `aclt_ksef`, dostęp do `.venv` oraz danych. Wartości SecretRef są przygotowane dla mostka przez Gateway.
+3. Ustalić część D06 dotyczącą certyfikatu, rozszerzyć kontrakt adaptera o potrzebny materiał i hasło oraz zrealizować logowanie certyfikatem, w tym błędy ważności i uprawnień. Udokumentować wynik wybranego stosu XAdES. Materiał prywatny nie trafia do parametrów modelu ani trwałej kopii w CLI.
 4. Dodać PDF z polskimi znakami, brandingiem ACLT-KSeF, informacją o autorze projektu i kodem QR właściwego środowiska dla przyjętych dokumentów. Sprawdzić długie i wielostronicowe faktury oraz korekty.
 5. Dodać spójną kopię danych i manifest, odtworzenie do nowego katalogu oraz rozliczenie operacji zachowanych w kopii.
 6. Sprawdzić restart, aktualizację paczki z zachowaniem danych i odtworzenie poprzedniej wersji programu zgodnie z wersją bazy.
@@ -145,6 +153,7 @@ Prace:
 Odbiór:
 
 - Agent korzysta z CLI znajdującego się w skillu i poprawnie odczytuje JSON oraz stany operacji.
+- Gateway załadował właściwą wersję mostka z adapterem KSeF. Przebieg przez rzeczywiste SecretRefs, `.venv` i docelowe katalogi jest sprawdzony, łącznie z reload po rotacji; same testy offline mostka nie zamykają tego punktu.
 - Agent zna drogę do każdej dostępnej funkcji, realizuje typowe zadania w budżecie wywołań z PRD i korzysta z `next_action` przy brakach danych lub oczekiwaniu. Raport zawiera także użyty model, rozmiar instrukcji i wyników oraz czasy lokalnych odczytów.
 - TEST obejmuje cały uzgodniony przepływ uruchomiony z docelowego Linuxa; wynik lokalnego uruchomienia na Macu nie zastępuje tego odbioru.
 - Rzeczywisty certyfikat i uprawnienia zostały sprawdzone na DEMO. Sam certyfikat self-signed TEST nie zamyka tego punktu.
@@ -189,6 +198,9 @@ Odbiór PROD obejmuje tylko faktycznie przeprowadzone przypadki. Poprawna faktur
 | --- | --- |
 | Nieznany katalog faktur potrzebnych firmie | Uzgodnić D02 przed M3; przesunąć wymagane warianty z backlogu do zakresu. |
 | Brak poświadczeń TEST lub dostępu do serwera | Oddzielić zakończenie części lokalnej od otwartego odbioru integracji. |
+| ACLT-Bridge 0.2.0 obsługuje tylko KiM | Dodać adapter KSeF i niezależną konfigurację w M1; nie traktować podmiany `cliPath` jako integracji. |
+| Wersja OpenClaw nie obsługuje wymaganych wejść sekretów | Wstępna weryfikacja runtime w M1, zapis wersji i odbiór aktywnego Gateway w M5. |
+| Mostek przerwie proces podczas wysyłki | Trwały identyfikator wywołania i operacji, rozstrzygnięcie niepewnego wyniku w M3; brak automatycznej powtórki. |
 | Pythonowa biblioteka XAdES nie spełnia wymagań KSeF | Wczesna ocena w M1, próba zgodności przed wdrożeniem certyfikatu; aktualizacja specyfikacji na podstawie wyniku. |
 | Różnice między środowiskami i aktualizacje API | Przypiąć kontrakt użyty w testach i sprawdzać docelowe środowisko przed jego odbiorem. |
 | Pominięcie danych na granicy eksportu | Obowiązkowe testy pełnych i obciętych paczek oraz awarii przed przesunięciem kontynuacji. |
@@ -202,4 +214,4 @@ Raport odbioru zapisuje wersję paczki, kontraktu API i schem, środowisko, wyko
 
 Przyrost funkcjonalności aktualizuje równocześnie mapę skilla i opis dostępnych komend oraz sprawdza liczbę wywołań potrzebnych do nowego zadania. Testy rozszerzamy o nowy przypadek lub ujawnione ryzyko, zamiast mnożyć testy powtarzające implementację. Powrót do starszej paczki wymaga sprawdzenia zgodności wersji bazy; migracji nie cofamy przez podmianę kodu w ciemno.
 
-Kolejny krok po przeglądzie dokumentów to zamknięcie decyzji D01–D03 i rozpoczęcie M1. Warianty faktur i informacje serwerowe zbieramy przed etapem, który ich wymaga.
+Kolejny krok po przeglądzie dokumentów to zamknięcie decyzji D01–D03 i części D06 dotyczącej stanu sesji oraz rozpoczęcie M1 z adapterem ACLT-Bridge. Warianty faktur, materiał certyfikatu i informacje serwerowe zbieramy przed etapem, który ich potrzebuje.

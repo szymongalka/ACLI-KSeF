@@ -28,7 +28,7 @@ Ocena z 2 października 2026 na podstawie statycznego przeglądu wybranego [snap
 
 **Czas uruchomienia.** Historyczne CLI ładuje biblioteki dokumentów i kryptografii także w prostych ścieżkach. Nowe lokalne listy i discovery mają uruchamiać się szybko, przez importy tylko tam, gdzie są potrzebne. Długie oczekiwanie na KSeF zwraca trwałą operację zamiast blokować agenta przez kilka minut.
 
-**Integracja OpenClaw.** [Adapter źródłowy](snapshot/openclaw/README.md) wykorzystuje dodatkowy proces Node do Secret Store OpenClaw. To rozwiązanie zależne od wybranej konfiguracji. Przy pierwszym wdrożeniu korzystamy z chronionych plików poświadczeń zgodnie ze specyfikacją. Adapter oceniamy dopiero, jeśli pojawi się wymaganie tego magazynu; nie dodajemy go automatycznie do paczki Pythona.
+**Integracja OpenClaw.** [Adapter źródłowy](snapshot/openclaw/README.md) wykorzystuje dodatkowy proces Node do Secret Store OpenClaw. Użytkownik wskazał **ACLT-Bridge** jako wymagane źródło poświadczeń dla ACLT-KSeF. Historyczny adapter służy do porównania; integrację realizujemy przez osobny adapter KSeF w ACLT-Bridge według [projektu integracji](../../docs/ACLT_BRIDGE.md). Chronione pliki mogą przechowywać stan sesji wydany przez KSeF, ale nie zastępują przekazania poświadczeń źródłowych przez mostek.
 
 Historyczne operacje SMB, ścieżki Gateway ONYX, narzędzia publikacji kolekcji skilli, rejestry kontrahentów i branding ASEF pozostają materiałem dodatkowym. Nie wynikają z uzgodnionego zakresu ACLT-KSeF.
 
