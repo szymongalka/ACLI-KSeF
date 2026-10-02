@@ -1,0 +1,41 @@
+{
+  "number": "FV/09/2026/001",
+  "issue_date": "2026-09-25",
+  "issue_place": "Warszawa",
+  "sale_date": "2026-09-24",
+  "payment_due_date": "2026-10-09",
+  "payment_method": "przelew",
+  "bank_account": {
+    "number": "00000000000000000000000000",
+    "bank": "Bank demonstracyjny"
+  },
+  "currency": "PLN",
+  "seller": {
+    "nip": "1111111111",
+    "name": "Kancelaria Projektowa Żółw i Wspólnicy",
+    "address1": "ul. Próbna 1/5",
+    "address2": "00-001 Warszawa"
+  },
+  "buyer": {
+    "nip": "2222222222",
+    "name": "Łąka Innowacje Sp. z o.o.",
+    "address1": "ul. Leśna 2",
+    "address2": "30-001 Kraków"
+  },
+  "lines": [
+    {
+      "description": "Opracowanie koncepcji graficznej i konsultacje projektowe dla nowego produktu",
+      "quantity": 2,
+      "unit": "szt.",
+      "unit_price_net": "1000.00",
+      "vat_rate": 23
+    },
+    {
+      "description": "Analiza danych sprzedażowych",
+      "quantity": 1,
+      "unit": "szt.",
+      "unit_price_net": "450.00",
+      "vat_rate": 8
+    }
+  ]
+}

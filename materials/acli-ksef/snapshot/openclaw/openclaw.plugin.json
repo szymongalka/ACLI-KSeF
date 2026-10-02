@@ -1,0 +1,99 @@
+{
+  "id": "asef-secretstore",
+  "name": "ASEF Secret Store",
+  "version": "0.1.1",
+  "description": "Private ASEF KSeF bridge using native OpenClaw SecretRefs.",
+  "categories": [
+    "other"
+  ],
+  "activation": {
+    "onStartup": true
+  },
+  "cliCommands": [
+    {
+      "name": "asef-secretstore",
+      "description": "Check ASEF KSeF authentication without displaying credentials",
+      "hasSubcommands": true
+    }
+  ],
+  "configContracts": {
+    "secretInputs": {
+      "paths": [
+        {
+          "path": "profiles.*.token",
+          "expected": "string",
+          "ownerKind": "capability"
+        }
+      ]
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "pythonPath": {
+        "type": "string",
+        "default": "/srv/asef/.venv/bin/python",
+        "pattern": "^/"
+      },
+      "allowSend": {
+        "type": "boolean",
+        "default": false
+      },
+      "profiles": {
+        "type": "array",
+        "default": [],
+        "maxItems": 30,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "nip",
+            "environment",
+            "token"
+          ],
+          "properties": {
+            "nip": {
+              "type": "string",
+              "pattern": "^[0-9]{10}$"
+            },
+            "environment": {
+              "type": "string",
+              "enum": [
+                "test",
+                "demo",
+                "prod"
+              ]
+            },
+            "token": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "provider",
+                "id"
+              ],
+              "properties": {
+                "source": {
+                  "const": "store"
+                },
+                "provider": {
+                  "const": "default"
+                },
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Z][A-Z0-9_]*$"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "contracts": {
+    "tools": [
+      "asef_ksef"
+    ]
+  }
+}

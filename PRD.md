@@ -1,17 +1,17 @@
-# ACLI-KSeF PRD
+# ACLT-KSeF PRD
 
-Wersja 0.4. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
-Głównym celem ACLI-KSeF jest szybka i sprawna obsługa całego zakresu skilla przez agenta AI. Produktem jest jedna paczka skilla z krótką instrukcją i własnym CLI w Pythonie, które wykonuje kompletne zadania użytkownika. Docelowe środowisko to serwer Linux z OpenClaw. Ten dokument określa potrzeby użytkownika i kryteria odbioru; [specyfikacja](SPECYFIKACJA.md) opisuje wykonanie, a [plan](PLAN.md) kolejność prac.
+Głównym celem ACLT-KSeF jest szybka i sprawna obsługa całego zakresu skilla przez agenta AI. Produktem jest jedna paczka skilla z krótką instrukcją i własnym CLI w Pythonie, które wykonuje kompletne zadania użytkownika. Docelowe środowisko to serwer Linux z OpenClaw. Ten dokument określa potrzeby użytkownika i kryteria odbioru; [specyfikacja](SPECYFIKACJA.md) opisuje wykonanie, a [plan](PLAN.md) kolejność prac.
 
 ## Ustalenia użytkownika
 
 | Obszar | Ustalenie |
 | --- | --- |
 | Lokalizacja projektu | `/Users/szymongalka/ACLT-KSeF` |
-| Nazwa produktu | ACLI-KSeF |
+| Nazwa produktu | ACLT-KSeF |
 | Autor i twórca projektu | Szymon Gałka |
 | Licencja projektu | GNU GPLv3, identyfikator SPDX `GPL-3.0-only` |
 | Produkt | Skill dla AI z CLI zawartym w paczce skilla |
@@ -20,12 +20,13 @@ Głównym celem ACLI-KSeF jest szybka i sprawna obsługa całego zakresu skilla 
 | Zakres docelowy | Pobieranie oraz wystawianie faktur i korekt |
 | Główny priorytet | Agent szybko odnajduje i sprawnie obsługuje wszystkie dostępne funkcje skilla. |
 | Sposób realizacji | Etapami, zaczynając od PRD, specyfikacji i planu |
+| Materiał dodatkowy | Źródłowy `acli-ksef`/ASEF służy jako inspiracja; rozwiązania wybieramy zgodnie z wymaganiami ACLT-KSeF. |
 
 Pozostałe wybory w tych dokumentach są propozycjami projektowymi. W szczególności jeden operator, jeden NIP i zakres pierwszych wystawianych dokumentów są założeniami do potwierdzenia, a nie dodatkowymi ustaleniami użytkownika.
 
 ## Branding i autorstwo
 
-Nazwa produktu to **ACLI-KSeF**. Identyfikator skilla, paczki i komendy CLI to `acli-ksef`. Dokumentacja, instrukcja skilla, pomoc CLI oraz podglądy HTML i PDF przedstawiają nazwę produktu i informację „Autor projektu: Szymon Gałka”. Projekt stosuje spójne nazewnictwo także w metadanych wydań.
+Nazwa produktu to **ACLT-KSeF**. Identyfikator skilla, paczki i komendy CLI to `aclt-ksef`. Dokumentacja, instrukcja skilla, pomoc CLI oraz podglądy HTML i PDF przedstawiają nazwę produktu i informację „Autor projektu: Szymon Gałka”. Projekt stosuje spójne nazewnictwo także w metadanych wydań.
 
 Branding podglądu identyfikuje narzędzie, które go wygenerowało. Dane sprzedawcy, nabywcy, numer dokumentu i status KSeF pozostają odrębnymi informacjami pochodzącymi z dokumentu. Informacja o autorze programu nie zastępuje danych wystawcy faktury.
 
@@ -140,7 +141,7 @@ Po przerwaniu synchronizacji ponowne uruchomienie wznawia pobieranie bez utraty 
 | Q07 | Utrzymanie | Odtwarzalna instalacja zależności, aktualizacja skilla zachowująca dane, działanie na docelowym Linuxie. |
 | Q08 | Czytelność | Podgląd zgodny z XML, poprawne polskie znaki, wielostronicowe PDF bez utraty pozycji; brak wymyślonego statusu płatności. |
 | Q09 | Szybkość obsługi przez AI | Krótka instrukcja wejściowa, ograniczone wyniki i typowe zadania realizowane w liczbie wywołań określonej powyżej. |
-| Q10 | Branding i autorstwo | Spójna nazwa ACLI-KSeF oraz wskazanie Szymona Gałki jako autora projektu w dokumentacji, skillu, pomocy CLI i podglądach. |
+| Q10 | Branding i autorstwo | Spójna nazwa ACLT-KSeF oraz wskazanie Szymona Gałki jako autora projektu w dokumentacji, skillu, pomocy CLI i podglądach. |
 
 Zawartość faktur i opisy kontrahentów stanowią dane wejściowe, a nie instrukcje dla agenta. Model nie ustala samodzielnie zasad podatkowych, nie dobiera stawki bez danych i nie przedstawia lokalnego oznaczenia płatności jako informacji pochodzącej z KSeF.
 
@@ -153,7 +154,7 @@ Integracje GUS, biała lista VAT, rejestry księgowe, płatności bankowe, autom
 ## Kryteria odbioru
 
 - **Odbiór paczki:** po instalacji ze wskazanego katalogu skill wywołuje zawarte CLI, które działa niezależnie od bieżącego katalogu terminala.
-- **Odbiór brandingu:** paczka i dokumentacja używają nazwy ACLI-KSeF; skill, pomoc CLI oraz podglądy wskazują autora projektu. Branding nie zmienia oryginalnego XML ani danych stron faktury.
+- **Odbiór brandingu:** paczka i dokumentacja używają nazwy ACLT-KSeF; skill, pomoc CLI oraz podglądy wskazują autora projektu. Branding nie zmienia oryginalnego XML ani danych stron faktury.
 - **Odbiór obsługi przez AI:** agent w nowej sesji, z instrukcją skilla i przygotowaną konfiguracją, realizuje reprezentatywne zadania odczytu, wystawiania, korekty i sprawdzania stanu; korzysta z opisu pól tylko wtedy, gdy go potrzebuje, i mieści się w zakładanej liczbie wywołań dla poprawnych danych. Każda dostępna funkcja ma jednoznaczną drogę odkrycia.
 - **Odbiór pobierania:** kontrolny zbiór TEST jest kompletny dla zadeklarowanych ról; ponowna i przerwana synchronizacja nie pomija dokumentów i nie tworzy duplikatów.
 - **Odbiór wystawiania:** uzgodnione przypadki dają poprawne sumy, XML przechodzi przypięte XSD, a operator widzi tę samą wersję danych w podglądzie.

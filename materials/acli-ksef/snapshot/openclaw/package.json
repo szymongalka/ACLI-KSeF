@@ -1,0 +1,27 @@
+{
+  "name": "@onyx/asef-secretstore",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "files": [
+    "index.mjs",
+    "runtime.mjs",
+    "cli-runtime.mjs",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "peerDependencies": {
+    "openclaw": "2026.9.6"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.mjs"
+    ]
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

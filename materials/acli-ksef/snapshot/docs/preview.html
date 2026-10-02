@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Faktura FV/09/2026/001 · ASEF</title>
+  <style>
+    :root { --ink:#172b37; --muted:#5c7180; --line:#d9e4e9; --soft:#f3f7f8; --accent:#145d6d; --gold:#d3a456; --paper:#fff; }
+    * { box-sizing:border-box; }
+    html { -webkit-text-size-adjust:100%; }
+    body { margin:0; background:#eaf0f2; color:var(--ink); font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+    .sheet { width:min(calc(100% - 32px),540px); margin:24px auto; background:var(--paper); border:1px solid #d6e1e6; border-radius:17px; box-shadow:0 18px 55px rgba(28,61,74,.10); overflow:hidden; }
+    .rail { height:6px; background:linear-gradient(90deg,#0d5163 0%,#1f7d85 68%,var(--gold) 100%); }
+    .content { padding:32px 28px 30px; }
+    .brand { display:flex; align-items:center; gap:13px; margin-bottom:39px; }
+    .brand-mark { width:45px; height:45px; flex:none; }
+    .brand-name { margin:0; color:var(--accent); font-size:19px; font-weight:850; letter-spacing:.15em; line-height:1.05; }
+    .brand-sub { display:block; margin-top:5px; color:var(--muted); font:650 9px/1.3 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.07em; text-transform:uppercase; }
+    .masthead { display:block; }
+    .eyebrow { margin:0 0 7px; color:var(--accent); font:700 11px/1.3 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.14em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(29px,4vw,41px); line-height:1.13; letter-spacing:-.04em; }
+    .number { margin:17px 0 0; overflow-wrap:anywhere; }
+    .number strong { display:block; margin-top:2px; color:var(--ink); font-size:clamp(22px,5vw,27px); font-weight:780; line-height:1.2; letter-spacing:-.035em; font-variant-numeric:tabular-nums; }
+    .status { display:inline-flex; align-items:center; gap:8px; margin-top:18px; padding:9px 13px; border:1px solid #c6ddd9; border-radius:6px; background:#eff8f5; color:#125e5a; font:750 11px/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.04em; text-transform:uppercase; }
+    .status::before { content:""; width:7px; height:7px; flex:none; border-radius:50%; background:currentColor; }
+    .status.draft { border-color:#eedbb8; background:#fff6e7; color:#8a5818; }
+    .status.rejected { border-color:#f0c7bf; background:#fff0ec; color:#a13f34; }
+    .meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; margin:29px 0; padding:17px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .label { display:block; margin-bottom:5px; color:var(--muted); font:700 10px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.10em; text-transform:uppercase; }
+    .meta strong { display:block; overflow-wrap:anywhere; }
+    .parties { display:grid; grid-template-columns:1fr; gap:9px; margin-bottom:27px; }
+    .party { min-width:0; padding:13px 16px; border:1px solid var(--line); border-radius:9px; background:var(--soft); overflow-wrap:anywhere; }
+    .party h2 { margin:0 0 6px; color:var(--accent); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+    .party .name { margin:0 0 6px; font-size:15px; font-weight:730; line-height:1.3; }
+    .party p { margin:2px 0; color:#435968; font-size:12.5px; line-height:1.4; }
+    .correction { margin:-3px 0 28px; padding:12px 15px; border-left:3px solid var(--accent); background:#edf6f5; overflow-wrap:anywhere; }
+    .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:13px; }
+    .section-head h2 { margin:0; font-size:20px; letter-spacing:-.025em; }
+    .section-head small { color:var(--muted); font-size:12px; }
+    .table-scroll { width:100%; overflow-x:auto; border:1px solid var(--line); border-radius:8px; -webkit-overflow-scrolling:touch; }
+    .table-scroll:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+    table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+    .items { min-width:680px; table-layout:fixed; }
+    .items th:nth-child(1) { width:5%; }
+    .items th:nth-child(2) { width:36%; }
+    .items th:nth-child(3) { width:8%; }
+    .items th:nth-child(4) { width:6%; }
+    .items th:nth-child(5) { width:14%; }
+    .items th:nth-child(6) { width:7%; }
+    .items th:nth-child(7) { width:12%; }
+    .items th:nth-child(8) { width:12%; }
+    th { padding:11px 10px; background:#eef4f5; color:#496472; font-size:11px; font-weight:750; letter-spacing:.04em; text-align:left; }
+    td { padding:13px 10px; border-top:1px solid var(--line); font-size:13px; vertical-align:top; overflow-wrap:anywhere; }
+    .items th { padding:12px 7px; white-space:nowrap; }
+    .items td { padding:17px 7px; font-size:12.5px; line-height:1.5; }
+    .items th:nth-child(1),.items td:nth-child(1),.items th:nth-child(3),.items td:nth-child(3),.items th:nth-child(4),.items td:nth-child(4) { text-align:center; }
+    .items th:nth-child(n+3),.items td:nth-child(n+3) { border-left:1px solid var(--line); }
+    .items td:nth-child(2) { font-size:13px; }
+    .items tbody tr:nth-child(even) { background:#fafcfc; }
+    .items td:nth-child(2) { font-weight:650; }
+    .before { display:inline-block; margin-top:4px; padding:2px 5px; border:1px solid var(--line); border-radius:3px; color:var(--muted); font-size:10px; }
+    .tax-wrap { margin-top:23px; }
+    .tax { min-width:0; table-layout:fixed; }
+    .tax th:first-child { width:32%; }
+    .tax th,.tax td { padding-left:6px; padding-right:6px; font-size:12px; }
+    .tax th:not(:first-child),.tax td:not(:first-child) { white-space:nowrap; }
+    .tax th:not(:first-child),.tax td:not(:first-child) { text-align:right; }
+    .tax tfoot { font-weight:750; background:var(--soft); }
+    .detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:11px; }
+    .detail-card { min-width:0; padding:13px 15px; border:1px solid var(--line); border-radius:8px; overflow-wrap:anywhere; }
+    .detail-grid > .detail-card:last-child:nth-child(odd) { grid-column:1/-1; }
+    .detail-card strong { display:block; }
+    .detail-card p { margin:4px 0 0; }
+    .verify { display:flex; align-items:center; gap:18px; margin-top:20px; padding:14px; border:1px solid var(--line); border-radius:8px; overflow-wrap:anywhere; }
+    .verify svg { width:100px; height:100px; flex:none; }
+    .verify a { color:var(--accent); word-break:break-all; }
+    .num { text-align:right; white-space:nowrap; }
+    .scroll-hint { display:block; margin:7px 1px 0; color:var(--muted); font-size:11px; }
+    .settlement { margin-top:32px; }
+    .amount-due { padding:17px 19px; border-radius:8px; background:var(--ink); color:#fff; }
+    .amount-due span { display:block; opacity:.78; font:700 11px/1.3 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .amount-due strong { display:block; margin-top:5px; color:#fff; font-size:clamp(24px,6vw,30px); line-height:1.2; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+    .payment { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:10px; border:1px solid var(--line); border-radius:8px; background:var(--soft); overflow:hidden; }
+    .payment > div { min-width:0; padding:14px 18px; }
+    .payment > div + div { border-left:1px solid var(--line); }
+    .payment strong { display:block; overflow-wrap:anywhere; }
+    .difference { margin:10px 0 0; color:var(--muted); font-size:12px; }
+    .ksef-number { margin:27px 0 0; padding:12px 15px; border:1px solid #c6ddd9; border-radius:7px; background:#eff8f5; overflow-wrap:anywhere; }
+    .ksef-number strong { display:block; margin-top:2px; }
+    .foot { display:flex; justify-content:space-between; gap:20px; margin-top:36px; padding-top:17px; border-top:1px solid var(--line); color:var(--muted); font-size:11px; }
+    .foot strong { color:var(--accent); letter-spacing:.1em; }
+    .foot .credit { display:block; margin-top:5px; }
+    .foot a { color:var(--accent); text-decoration:none; border-bottom:1px solid var(--line); }
+    .foot a:hover { border-bottom-color:currentColor; }
+    @media (max-width:700px) {
+      body { background:#fff; }
+      .sheet { width:100%; margin:0; border:0; border-radius:0; box-shadow:none; }
+      .content { padding:27px 20px 31px; }
+      .brand { margin-bottom:28px; }
+      .meta { gap:17px 12px; }
+      .detail-grid { grid-template-columns:1fr; }
+      .detail-grid > .detail-card:last-child:nth-child(odd) { grid-column:auto; }
+      .party { padding:13px 15px; }
+      .settlement { margin-top:31px; }
+      .amount-due { padding:15px 14px; }
+      .amount-due strong { font-size:27px; }
+      .foot { display:block; }
+      .foot strong { display:block; margin-bottom:5px; }
+      .verify { align-items:flex-start; }
+    }
+    @media (max-width:380px) {
+      .content { padding-left:16px; padding-right:16px; }
+      .brand-sub { max-width:235px; }
+      .amount-due strong { font-size:24px; }
+    }
+    @media print {
+      body { background:#fff; }
+      .sheet { width:100%; margin:0; border:0; box-shadow:none; }
+      .content { padding:15mm 12mm; }
+      .table-scroll { overflow:visible; }
+      .items { min-width:0; }
+      .items td,.items th { font-size:9px; padding:7px 5px; }
+      .scroll-hint { display:none; }
+      .party,.status,.amount-due { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+      tr { break-inside:avoid; }
+    }
+  </style>
+</head>
+<body>
+  <article class="sheet" aria-label="Wizualizacja e-Faktury ASEF">
+    <div class="rail"></div>
+    <div class="content">
+      <div class="brand" aria-label="ASEF - Agencyjny System Elektronicznych Faktur">
+        <svg class="brand-mark" viewBox="0 0 48 48" role="img" aria-label="Znak ASEF">
+          <rect x="1" y="1" width="46" height="46" rx="9" fill="#145d6d"/>
+          <path d="M11 35 23 10 35 35M16 27h14" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="38" cy="11" r="3" fill="#d3a456"/>
+        </svg>
+        <div><p class="brand-name">ASEF</p><span class="brand-sub">Agencyjny System Elektronicznych Faktur</span></div>
+      </div>
+
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Dokument / FA(3)</p>
+          <h1>Faktura VAT</h1>
+          <div class="number"><span class="label">Numer faktury</span><strong>FV/09/2026/001</strong></div>
+        </div>
+        <span class="status draft">
+          Podgląd przed wysyłką
+        </span>
+      </header>
+
+      <div class="meta" aria-label="Dane dokumentu">
+        <div><span class="label">Data wystawienia</span><strong>2026-09-25</strong></div>
+        <div><span class="label">Data zakończenia dostawy / usługi</span><strong>2026-09-24</strong></div>
+        <div><span class="label">Miejsce wystawienia</span><strong>Warszawa</strong></div>
+        <div><span class="label">Waluta</span><strong>PLN</strong></div>
+        <div><span class="label">Typ dokumentu</span><strong>Faktura</strong></div>
+      </div>
+
+      <section class="parties" aria-label="Strony transakcji">
+        <div class="party"><h2>Sprzedawca</h2><p class="name">Kancelaria Projektowa Żółw i Wspólnicy</p><p>NIP 1111111111</p><p>ul. Próbna 1/5</p><p>00-001 Warszawa</p><p>Kraj: PL</p></div>
+        <div class="party"><h2>Nabywca</h2><p class="name">Łąka Innowacje Sp. z o.o.</p><p>NIP 2222222222</p><p>ul. Leśna 2</p><p>30-001 Kraków</p><p>Kraj: PL</p><p>Jednostka podrzędna JST: Nie</p><p>Członek grupy GV: Nie</p></div>
+      </section>
+
+
+
+      <section aria-label="Pozycje faktury">
+        <div class="section-head"><h2>Pozycje faktury</h2><small>2 pozycje</small></div>
+        <div class="table-scroll" role="region" aria-label="Tabela pozycji faktury" tabindex="0">
+          <table class="items">
+            <thead><tr><th scope="col">Lp.</th><th scope="col">Towar lub usługa</th><th scope="col" class="num">Ilość</th><th scope="col">Jm</th><th scope="col" class="num">Cena netto</th><th scope="col" class="num">VAT</th><th scope="col" class="num">Kwota VAT</th><th scope="col" class="num">Cena brutto</th></tr></thead>
+            <tbody>
+
+              <tr><td>1</td><td>Opracowanie koncepcji graficznej i konsultacje projektowe dla nowego produktu</td><td class="num">2</td><td>szt.</td><td class="num">1000.00</td><td class="num">23%</td><td class="num">460.00</td><td class="num">1230.00</td></tr>
+
+              <tr><td>2</td><td>Analiza danych sprzedażowych</td><td class="num">1</td><td>szt.</td><td class="num">450.00</td><td class="num">8%</td><td class="num">36.00</td><td class="num">486.00</td></tr>
+
+            </tbody>
+          </table>
+        </div>
+        <p class="scroll-hint">Przesuń tabelę w bok, aby zobaczyć wszystkie kolumny.</p>
+      </section>
+
+      <section class="tax-wrap" aria-label="Zestawienie VAT"><div class="section-head"><h2>Zestawienie VAT</h2></div><div class="table-scroll" role="region" aria-label="Tabela stawek VAT" tabindex="0"><table class="tax"><thead><tr><th>Stawka VAT</th><th>Netto</th><th>VAT</th><th>Brutto</th></tr></thead><tbody><tr><td>23%</td><td>2000.00</td><td>460.00</td><td>2460.00</td></tr><tr><td>8%</td><td>450.00</td><td>36.00</td><td>486.00</td></tr></tbody><tfoot><tr><td>Razem</td><td>2450.00</td><td>496.00</td><td>2946.00</td></tr></tfoot></table></div></section>
+
+
+
+      <section class="settlement" aria-label="Płatność">
+        <div class="amount-due"><span>Kwota należności ogółem</span><strong>2946.00 PLN</strong></div>
+
+        <div class="detail-grid" aria-label="Warunki płatności"><div class="detail-card"><span class="label">Termin płatności</span><strong>2026-10-09</strong></div><div class="detail-card"><span class="label">Forma płatności</span><strong>Przelew</strong></div></div>
+        <div class="detail-grid" aria-label="Rachunki bankowe"><div class="detail-card"><span class="label">Rachunek bankowy</span><strong>00000000000000000000000000</strong><p>Bank demonstracyjny</p></div></div>
+
+
+      </section>
+
+
+
+      <footer class="foot">
+        <div><strong>ASEF / E-FAKTURA</strong><span class="credit">Autor podglądu: Szymon Gałka · <a href="mailto:kontakt@szymongalka.dev">kontakt@szymongalka.dev</a> · <a href="https://szymongalka.dev">szymongalka.dev</a></span></div>
+        <span>Wizualizacja z dokumentu XML FA(3). Wartości wyliczane do podglądu są zależne od danych dostępnych w dokumencie.</span>
+      </footer>
+    </div>
+  </article>
+</body>
+</html>

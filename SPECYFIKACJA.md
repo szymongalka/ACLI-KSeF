@@ -1,6 +1,6 @@
-# ACLI-KSeF specyfikacja techniczna
+# ACLT-KSeF specyfikacja techniczna
 
-Wersja 0.4. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
@@ -10,19 +10,19 @@ Specyfikacja opisuje wykonanie wymagań z [PRD](PRD.md). Priorytetem jest sprawn
 
 | Element | Wartość |
 | --- | --- |
-| Nazwa prezentowana użytkownikowi | ACLI-KSeF |
+| Nazwa prezentowana użytkownikowi | ACLT-KSeF |
 | Autor projektu | Szymon Gałka |
 | Licencja projektu | GNU GPLv3, SPDX `GPL-3.0-only` |
-| Identyfikator skilla i paczki Pythona | `acli-ksef` |
-| Launcher CLI w paczce | `scripts/acli-ksef` |
-| Moduł Pythona | `acli_ksef` |
-| Prefiks zmiennych środowiskowych | `ACLI_KSEF_` |
+| Identyfikator skilla i paczki Pythona | `aclt-ksef` |
+| Launcher CLI w paczce | `scripts/aclt-ksef` |
+| Moduł Pythona | `aclt_ksef` |
+| Prefiks zmiennych środowiskowych | `ACLT_KSEF_` |
 
-`README.md` i `SKILL.md` zawierają nazwę produktu oraz informację o autorze. Metadane `pyproject.toml` wskazują nazwę paczki i autora. `--help` i `--version` przedstawiają ACLI-KSeF oraz Szymona Gałkę; tryb maszynowy nie dodaje banera do wyników JSON. `doctor` zwraca nazwę, wersję i autora w metadanych instalacji.
+`README.md` i `SKILL.md` zawierają nazwę produktu oraz informację o autorze. Metadane `pyproject.toml` wskazują nazwę paczki i autora. `--help` i `--version` przedstawiają ACLT-KSeF oraz Szymona Gałkę; tryb maszynowy nie dodaje banera do wyników JSON. `doctor` zwraca nazwę, wersję i autora w metadanych instalacji.
 
 Kod i dokumentacja projektu korzystają z GNU GPLv3 (`GPL-3.0-only`). Metadane przyszłej paczki Pythona wskazują ten identyfikator SPDX oraz plik [LICENSE](LICENSE). Pełny tekst licencji jest częścią paczki skilla i archiwów wydań; użyte zależności i zasoby zachowują swoje wymagane oznaczenia.
 
-Podglądy HTML i PDF zawierają dyskretną informację „Wygenerowano przez ACLI-KSeF · Autor projektu: Szymon Gałka”. Informacja znajduje się poza danymi sprzedawcy i nabywcy. Branding nie dopisuje pól do faktury FA(3), nie zmienia oryginalnych bajtów XML ani UPO. Przy wykorzystaniu cudzych zależności i zasobów zachowujemy wymagane przez nie informacje o autorach i licencjach.
+Podglądy HTML i PDF zawierają dyskretną informację „Wygenerowano przez ACLT-KSeF · Autor projektu: Szymon Gałka”. Informacja znajduje się poza danymi sprzedawcy i nabywcy. Branding nie dopisuje pól do faktury FA(3), nie zmienia oryginalnych bajtów XML ani UPO. Przy wykorzystaniu cudzych zależności i zasobów zachowujemy wymagane przez nie informacje o autorach i licencjach.
 
 ## Architektura i odpowiedzialności
 
@@ -72,16 +72,16 @@ Listy domyślnie zwracają do 20 rekordów i pola potrzebne do ich rozpoznania. 
 Proponowany układ docelowy:
 
 ```text
-acli-ksef/
+aclt-ksef/
   README.md
   LICENSE
   SKILL.md
   pyproject.toml
   uv.lock
   scripts/
-    acli-ksef
+    aclt-ksef
     ksef.py
-    acli_ksef/
+    aclt_ksef/
   references/
     workflows.md
   assets/
@@ -89,7 +89,7 @@ acli-ksef/
   .venv/                 środowisko tworzone podczas instalacji
 ```
 
-`scripts/acli-ksef` to mały launcher korzystający wyłącznie z Pythona w `.venv` tej paczki. `scripts/ksef.py` uruchamia CLI, a `scripts/acli_ksef` zawiera jego moduły. Launcher wyznacza katalog paczki względem własnego położenia, nie względem bieżącego katalogu terminala. Brak środowiska powoduje czytelny błąd instalacji; komenda biznesowa nie pobiera zależności automatycznie.
+`scripts/aclt-ksef` to mały launcher korzystający wyłącznie z Pythona w `.venv` tej paczki. `scripts/ksef.py` uruchamia CLI, a `scripts/aclt_ksef` zawiera jego moduły. Launcher wyznacza katalog paczki względem własnego położenia, nie względem bieżącego katalogu terminala. Brak środowiska powoduje czytelny błąd instalacji; komenda biznesowa nie pobiera zależności automatycznie.
 
 Repozytorium może dodatkowo zawierać te trzy dokumenty i testy. Archiwum dystrybucyjne zawiera elementy potrzebne do użycia skilla; nie zawiera lokalnej `.venv`, baz, faktur ani poświadczeń. Środowisko powstaje na docelowym Linuxie. CLI nie jest osobnym produktem wymagającym instalacji globalnej.
 
@@ -98,9 +98,9 @@ Propozycja środowiska to Python 3.12 lub nowszy, z wersją testowaną i zapisan
 Skill korzysta z wywołań w formie:
 
 ```text
-"{baseDir}/scripts/acli-ksef" --json --profile test doctor
-"{baseDir}/scripts/acli-ksef" --json --profile test sync
-"{baseDir}/scripts/acli-ksef" --json --profile test invoices list --direction received
+"{baseDir}/scripts/aclt-ksef" --json --profile test doctor
+"{baseDir}/scripts/aclt-ksef" --json --profile test sync
+"{baseDir}/scripts/aclt-ksef" --json --profile test invoices list --direction received
 ```
 
 OpenClaw udostępnia `{baseDir}` jako odwołanie do folderu skilla. Skill trafia do katalogu odkrywanego przez konkretną instalację OpenClaw; samo wykrycie skilla nie dowodzi dostępu do jego plików i zależności z miejsca wykonywania poleceń. [Format i ładowanie skilli OpenClaw](https://docs.openclaw.ai/tools/skills).
@@ -122,7 +122,7 @@ Dokładne wersje i zgodność bibliotek zostaną ustalone podczas implementacji.
 
 ## Konfiguracja i dane
 
-Operator wskazuje katalog konfiguracji oraz katalog danych. Proponowane wartości domyślne to katalogi XDG użytkownika wykonującego CLI: `~/.config/acli-ksef` i `~/.local/share/acli-ksef`. Jawne `ACLI_KSEF_CONFIG_DIR` i `ACLI_KSEF_DATA_DIR` pozwalają dopasować je do Linuxa i kontenera. Zmienne nie zawierają sekretów.
+Operator wskazuje katalog konfiguracji oraz katalog danych. Proponowane wartości domyślne to katalogi XDG użytkownika wykonującego CLI: `~/.config/aclt-ksef` i `~/.local/share/aclt-ksef`. Jawne `ACLT_KSEF_CONFIG_DIR` i `ACLT_KSEF_DATA_DIR` pozwalają dopasować je do Linuxa i kontenera. Zmienne nie zawierają sekretów.
 
 Konfiguracja TOML definiuje profile. Profil ma identyfikator, środowisko `TEST`, `DEMO` lub `PROD`, NIP kontekstu, metodę logowania, odwołania do poświadczeń i role objęte synchronizacją. Dane firmy i zasady numeracji są osobną częścią konfiguracji. Identyfikator profilu jest stabilny; zmiana środowiska lub NIP tworzy nowy profil.
 
@@ -137,7 +137,7 @@ Komendy biznesowe wymagają jawnego `--profile`. Diagnostyka bez profilu może w
 Ogólny format:
 
 ```text
-scripts/acli-ksef [--json] --profile PROFIL GRUPA KOMENDA [OPCJE]
+scripts/aclt-ksef [--json] --profile PROFIL GRUPA KOMENDA [OPCJE]
 ```
 
 Dane dokumentów trafiają przez `--input PLIK` lub standardowe wejście, nie przez wielowierszowe argumenty powłoki. Agent tworzy ustrukturyzowany JSON i bezpiecznie przekazuje ścieżkę; treści faktur nie są interpolowane do polecenia.
@@ -323,6 +323,8 @@ Kopia danych korzysta ze spójnego odczytu SQLite i zawiera powiązane XML, UPO 
 
 Źródła sprawdzono 2 października 2026. Ustalenia produktowe z PRD mają pierwszeństwo przed propozycjami technicznymi. Zmiana API wymaga oceny wpływu na klienta, testy i instrukcję skilla.
 
+Osobny [snapshot acli-ksef/ASEF](materials/acli-ksef/README.md) jest materiałem inspiracyjnym. Zachowuje historyczne nazwy, komendy i opis środowiska źródłowego. Jego instrukcje, konfiguracja, branding i deklaracje walidacji nie określają zachowania ACLT-KSeF. [Analiza adaptacji](materials/acli-ksef/ANALIZA.md) wskazuje rozwiązania do oceny podczas implementacji; normatywnym źródłem integracji pozostają kontrakty MF.
+
 - [Kontrakty i wsparcie integratorów MF](https://ksef.podatki.gov.pl/ksef-na-okres-obligatoryjny/wsparcie-dla-integratorow/).
 - [Przewodnik KSeF](https://github.com/CIRFMF/ksef-api).
 - [FA(3) i materiały MF](https://ksef.podatki.gov.pl/informacje-ogolne-ksef-20/struktura-logiczna-fa-3/).
@@ -330,4 +332,4 @@ Kopia danych korzysta ze spójnego odczytu SQLite i zawiera powiązane XML, UPO 
 - [Ładowanie i format skilli OpenClaw](https://docs.openclaw.ai/tools/skills).
 - [Miejsce wykonywania poleceń OpenClaw](https://docs.openclaw.ai/tools/exec).
 
-Szczegóły pól wejścia faktury, reguł podatkowych i zaokrągleń oraz konkretna konfiguracja serwera wymagają uzupełnienia w etapach wskazanych w planie. Nie stanowią potwierdzonej implementacji w wersji 0.4 dokumentów.
+Szczegóły pól wejścia faktury, reguł podatkowych i zaokrągleń oraz konkretna konfiguracja serwera wymagają uzupełnienia w etapach wskazanych w planie. Nie stanowią potwierdzonej implementacji w wersji 0.5 dokumentów.

@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "purpose": "Reference and inspiration only; not an ACLT-KSeF implementation or installable skill",
+  "imported_on": "2026-10-02",
+  "source": {
+    "collection": "acli-ksef",
+    "code_identity": "ASEF",
+    "release_directory": "rel-e182a92250478d044369a64415a3008a9e5f867b440f5c54342b0cb9414da5e1",
+    "declared_manifest_sha256": "e182a92250478d044369a64415a3008a9e5f867b440f5c54342b0cb9414da5e1",
+    "original_manifest_verified_files": 77
+  },
+  "privacy_review": {
+    "scope": "Selected text snapshot; credential patterns, private-key blocks, identifiers, financial examples, URLs and runtime-file inventory",
+    "example_bank_account": "Replaced with 26 zero digits in both JSON and HTML",
+    "credentials": "Only explicit test fixtures and marker strings found; no live credentials identified",
+    "author_contact": "Public author contact retained",
+    "excluded_runtime_cache": true,
+    "functional_tests_run": false
+  },
+  "files": [
+    {
+      "source_path": ".agents/BRAND.md",
+      "snapshot_path": ".agents/BRAND.md",
+      "source_sha256": "c11d28c89f7a33a1f516e1ae58c0d0991420a7cbf9b2c85ed1e9cd8dc648de80",
+      "snapshot_sha256": "c11d28c89f7a33a1f516e1ae58c0d0991420a7cbf9b2c85ed1e9cd8dc648de80",
+      "changes": []
+    },
+    {
+      "source_path": ".agents/PROJECT.md",
+      "snapshot_path": ".agents/PROJECT.md",
+      "source_sha256": "00724e9946144aa2813d648f2606979036be7f7c9204bc0e779f036aa1d3b0be",
+      "snapshot_sha256": "00724e9946144aa2813d648f2606979036be7f7c9204bc0e779f036aa1d3b0be",
+      "changes": []
+    },
+    {
+      "source_path": ".github/workflows/ci.yml",
+      "snapshot_path": ".github/workflows/ci.yml",
+      "source_sha256": "a886f919a21a706c2a37306ebf0cc799839fabd875a1b8d94dd0c781c56c3a49",
+      "snapshot_sha256": "a886f919a21a706c2a37306ebf0cc799839fabd875a1b8d94dd0c781c56c3a49",
+      "changes": []
+    },
+    {
+      "source_path": ".gitignore",
+      "snapshot_path": ".gitignore",
+      "source_sha256": "9cd24d7cf273fc43ff914c8a1668dbf9daf907bbb37f57e4f236735961e202e4",
+      "snapshot_sha256": "9cd24d7cf273fc43ff914c8a1668dbf9daf907bbb37f57e4f236735961e202e4",
+      "changes": []
+    },
+    {
+      "source_path": "AGENTS.md",
+      "snapshot_path": "AGENTS.reference.md",
+      "source_sha256": "b016fe1eae9abb1ace7bbb6a35af51e10cf9be9815da3fe72ba1fed90eb1a143",
+      "snapshot_sha256": "da015ec2b03ee94b4993782ddc5e1a0627672dcc51fe1b9d5f60a3909f80cc75",
+      "changes": [
+        "Renamed instruction file and added a reference-only notice",
+        "Updated link to renamed SKILL reference"
+      ]
+    },
+    {
+      "source_path": "README.md",
+      "snapshot_path": "README.md",
+      "source_sha256": "0e217edf6cb2e84f9f313b9b226762c2466870987a3b177e33cb2b5c54c25fd4",
+      "snapshot_sha256": "66e5c5a78faee43e03f0d2bcc5fa1a40877441b438304f2a9e3125d6a5e95147",
+      "changes": [
+        "Added reference-only notice and updated renamed SKILL link"
+      ]
+    },
+    {
+      "source_path": "SECURITY.md",
+      "snapshot_path": "SECURITY.md",
+      "source_sha256": "e566230e4b73135eab2f2160d362b2c39df9bc77a78b31d48a02db0624e7692c",
+      "snapshot_sha256": "e566230e4b73135eab2f2160d362b2c39df9bc77a78b31d48a02db0624e7692c",
+      "changes": []
+    },
+    {
+      "source_path": "SKILL.md",
+      "snapshot_path": "SKILL.reference.md",
+      "source_sha256": "caee1546826014d12df5ba367d0419c363f7c55d25954f9e58408dd79118a8b4",
+      "snapshot_sha256": "cb7f992e50ef5b0190e814e65333a5646582fc1c0e59b9590ac8de75cb52e7cb",
+      "changes": [
+        "Renamed instruction file and added a reference-only notice"
+      ]
+    },
+    {
+      "source_path": "THIRD_PARTY_NOTICES.md",
+      "snapshot_path": "THIRD_PARTY_NOTICES.md",
+      "source_sha256": "2741dff0f88b749b6f86112f10eecfa3e83106d307c408877ae0613a0509beb7",
+      "snapshot_sha256": "2741dff0f88b749b6f86112f10eecfa3e83106d307c408877ae0613a0509beb7",
+      "changes": []
+    },
+    {
+      "source_path": "assets/asef-logo-crt.svg",
+      "snapshot_path": "assets/asef-logo-crt.svg",
+      "source_sha256": "fd48cb9dfdd92b2b07d48bcad13c8e32edb206f12601c7d1d5910be6b86a0bd7",
+      "snapshot_sha256": "fd48cb9dfdd92b2b07d48bcad13c8e32edb206f12601c7d1d5910be6b86a0bd7",
+      "changes": []
+    },
+    {
+      "source_path": "assets/asef-logo-light.svg",
+      "snapshot_path": "assets/asef-logo-light.svg",
+      "source_sha256": "3525fa00b6c396e8942f35ce2e80b9e54e10e6aa2cb1e6980b38cf13fdb076d6",
+      "snapshot_sha256": "3525fa00b6c396e8942f35ce2e80b9e54e10e6aa2cb1e6980b38cf13fdb076d6",
+      "changes": []
+    },
+    {
+      "source_path": "docs/openclaw.md",
+      "snapshot_path": "docs/openclaw.md",
+      "source_sha256": "852ebb78fbbc25c4c6fd91df045b1976f78df74efc024fa1c276e72e705eb8e7",
+      "snapshot_sha256": "852ebb78fbbc25c4c6fd91df045b1976f78df74efc024fa1c276e72e705eb8e7",
+      "changes": []
+    },
+    {
+      "source_path": "docs/preview.html",
+      "snapshot_path": "docs/preview.html",
+      "source_sha256": "224f29c7181f025c0c3a2cc79bc28ab0b80006b93da51254a18659fb971b58aa",
+      "snapshot_sha256": "e438a0f38c3f24092a62f0cb88b3c41c2b77a0f81df8b30ebc7c0c1944358c45",
+      "changes": [
+        "Replaced example bank account with an all-zero synthetic value"
+      ]
+    },
+    {
+      "source_path": "examples/faktura.json",
+      "snapshot_path": "examples/faktura.json",
+      "source_sha256": "e6e51bed8932d81723ad0c4dee12d345f6907fc1226b912f8e52f3b525780bf6",
+      "snapshot_sha256": "f7148c7f47205f3e2f71c99e29990a6004747b1f2f5899d9ee6137a6b1a4437c",
+      "changes": [
+        "Replaced example bank account with an all-zero synthetic value"
+      ]
+    },
+    {
+      "source_path": "openclaw/README.md",
+      "snapshot_path": "openclaw/README.md",
+      "source_sha256": "6b3804409ac45e6ab72f0682e1cad8d7fa19d76d53e56d8fec98c0f79539f875",
+      "snapshot_sha256": "6b3804409ac45e6ab72f0682e1cad8d7fa19d76d53e56d8fec98c0f79539f875",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/cli-runtime.mjs",
+      "snapshot_path": "openclaw/cli-runtime.mjs",
+      "source_sha256": "4198423debb68a17c1790159280abeb452d17e0c438040a72d46e4780eb1b61b",
+      "snapshot_sha256": "4198423debb68a17c1790159280abeb452d17e0c438040a72d46e4780eb1b61b",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/cli.mjs",
+      "snapshot_path": "openclaw/cli.mjs",
+      "source_sha256": "133f6f74a49a4fed72e08320361aed82c8f52c4ce01a62f940ec6b5b82b2ee77",
+      "snapshot_sha256": "133f6f74a49a4fed72e08320361aed82c8f52c4ce01a62f940ec6b5b82b2ee77",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/index.mjs",
+      "snapshot_path": "openclaw/index.mjs",
+      "source_sha256": "9f609a572b72aa5a7c90f7d4bc0c3919135f5dbc88f3686a0caa32260a29964d",
+      "snapshot_sha256": "9f609a572b72aa5a7c90f7d4bc0c3919135f5dbc88f3686a0caa32260a29964d",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/openclaw.plugin.json",
+      "snapshot_path": "openclaw/openclaw.plugin.json",
+      "source_sha256": "bdd63cde9160b230f77d82dc6a859d0537e7c684c92111fd2abe515910a335fc",
+      "snapshot_sha256": "bdd63cde9160b230f77d82dc6a859d0537e7c684c92111fd2abe515910a335fc",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/package-lock.json",
+      "snapshot_path": "openclaw/package-lock.json",
+      "source_sha256": "1d7ef4916bb66086f2c8e655555a3dc2bf431de6a9ce30b62651b58d18177d24",
+      "snapshot_sha256": "1d7ef4916bb66086f2c8e655555a3dc2bf431de6a9ce30b62651b58d18177d24",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/package.json",
+      "snapshot_path": "openclaw/package.json",
+      "source_sha256": "634a74366f64e7505f29095f4cb0b32e182761f7b7624de78feca0da0b96a87e",
+      "snapshot_sha256": "634a74366f64e7505f29095f4cb0b32e182761f7b7624de78feca0da0b96a87e",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/runtime.mjs",
+      "snapshot_path": "openclaw/runtime.mjs",
+      "source_sha256": "38e54ce69a765d5a122667ff0c9ca91d78261668192c2d65098a32e83ff7783e",
+      "snapshot_sha256": "38e54ce69a765d5a122667ff0c9ca91d78261668192c2d65098a32e83ff7783e",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/test/cli-runtime.test.mjs",
+      "snapshot_path": "openclaw/test/cli-runtime.test.mjs",
+      "source_sha256": "9a0d0918bc006637505734795c13fca5c5cf1b77c3b8637e7c1684f068a93ed2",
+      "snapshot_sha256": "9a0d0918bc006637505734795c13fca5c5cf1b77c3b8637e7c1684f068a93ed2",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/test/entry.test.mjs",
+      "snapshot_path": "openclaw/test/entry.test.mjs",
+      "source_sha256": "654fd216cecbc2f2e50679c1202baa105ffdd702e590f3c2fbd32a3aa120586e",
+      "snapshot_sha256": "654fd216cecbc2f2e50679c1202baa105ffdd702e590f3c2fbd32a3aa120586e",
+      "changes": []
+    },
+    {
+      "source_path": "openclaw/test/runtime.test.mjs",
+      "snapshot_path": "openclaw/test/runtime.test.mjs",
+      "source_sha256": "ab2a7e73f6be9a9d478a22dcf81427cfd7c872b02ab4c085a3b16d33b5da0ab6",
+      "snapshot_sha256": "ab2a7e73f6be9a9d478a22dcf81427cfd7c872b02ab4c085a3b16d33b5da0ab6",
+      "changes": []
+    },
+    {
+      "source_path": "pyproject.toml",
+      "snapshot_path": "pyproject.toml",
+      "source_sha256": "03be06deb8d53312082fa1b8b20951192ff284f3ebc91787cf2a42d1cf9cf595",
+      "snapshot_sha256": "03be06deb8d53312082fa1b8b20951192ff284f3ebc91787cf2a42d1cf9cf595",
+      "changes": []
+    },
+    {
+      "source_path": "references/boundaries.md",
+      "snapshot_path": "references/boundaries.md",
+      "source_sha256": "218672e07659694ed31591e23e2f830ae5c92ddecb468f28ce74192b4b0d8d75",
+      "snapshot_sha256": "218672e07659694ed31591e23e2f830ae5c92ddecb468f28ce74192b4b0d8d75",
+      "changes": []
+    },
+    {
+      "source_path": "references/reinvoice.md",
+      "snapshot_path": "references/reinvoice.md",
+      "source_sha256": "4f0fc68d233a6ca0b940730391b82d09168645f76749e5224fbd65285b227eea",
+      "snapshot_sha256": "4f0fc68d233a6ca0b940730391b82d09168645f76749e5224fbd65285b227eea",
+      "changes": []
+    },
+    {
+      "source_path": "release.json",
+      "snapshot_path": "release.source.json",
+      "source_sha256": "b52248f23b2e53a11dfa117063a38bcd8a55ba8571da368599b62b0e8d63cbf1",
+      "snapshot_sha256": "b52248f23b2e53a11dfa117063a38bcd8a55ba8571da368599b62b0e8d63cbf1",
+      "changes": [
+        "Renamed historical release manifest; it describes original source bytes only"
+      ]
+    },
+    {
+      "source_path": "scripts/check_draft.py",
+      "snapshot_path": "scripts/check_draft.py",
+      "source_sha256": "c5dce4459a87d78a29b9e9c97a0899277389e652d9e362f5b5fa9298f918aa56",
+      "snapshot_sha256": "c5dce4459a87d78a29b9e9c97a0899277389e652d9e362f5b5fa9298f918aa56",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/__init__.py",
+      "snapshot_path": "src/asef/__init__.py",
+      "source_sha256": "5506994e61366f86baef8e88c7ae54384f8505805cddf65ce3a35c9ede16ecaf",
+      "snapshot_sha256": "5506994e61366f86baef8e88c7ae54384f8505805cddf65ce3a35c9ede16ecaf",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/__main__.py",
+      "snapshot_path": "src/asef/__main__.py",
+      "source_sha256": "c1c0ab2f83e31b9d6be7054aa8985ca093d32df1d6d3035b0f7d43ad43743162",
+      "snapshot_sha256": "c1c0ab2f83e31b9d6be7054aa8985ca093d32df1d6d3035b0f7d43ad43743162",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/bulk_xml.py",
+      "snapshot_path": "src/asef/bulk_xml.py",
+      "source_sha256": "337f8ab27e02d42b974efb31b852fd4e9975873cb21c69d5cc9bfe7794874cb5",
+      "snapshot_sha256": "337f8ab27e02d42b974efb31b852fd4e9975873cb21c69d5cc9bfe7794874cb5",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/certificates.py",
+      "snapshot_path": "src/asef/certificates.py",
+      "source_sha256": "d95d84085de3e63be505ba9e52bcd91067297f567dc755560a960e7954b15d49",
+      "snapshot_sha256": "d95d84085de3e63be505ba9e52bcd91067297f567dc755560a960e7954b15d49",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/cli.py",
+      "snapshot_path": "src/asef/cli.py",
+      "source_sha256": "ab8cd391356462d3093bb10ff205a523a41007667937f01ea77b6beefdf7fa2c",
+      "snapshot_sha256": "ab8cd391356462d3093bb10ff205a523a41007667937f01ea77b6beefdf7fa2c",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/db.py",
+      "snapshot_path": "src/asef/db.py",
+      "source_sha256": "0a2f4ea3d55383ce95ff5b4e980eda8808c6b4586e2b3ae4fd0a5ebc0e97f99e",
+      "snapshot_sha256": "0a2f4ea3d55383ce95ff5b4e980eda8808c6b4586e2b3ae4fd0a5ebc0e97f99e",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/db_archive.py",
+      "snapshot_path": "src/asef/db_archive.py",
+      "source_sha256": "b4aa653fcaa3be0fba268ac78ea9a5c8f0623e333c90fc74b972e173f99336f4",
+      "snapshot_sha256": "b4aa653fcaa3be0fba268ac78ea9a5c8f0623e333c90fc74b972e173f99336f4",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/invoice.py",
+      "snapshot_path": "src/asef/invoice.py",
+      "source_sha256": "1463666762837282d457ff679e502c75872a549ed8eb26552d46180ad4bd9112",
+      "snapshot_sha256": "1463666762837282d457ff679e502c75872a549ed8eb26552d46180ad4bd9112",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/ksef.py",
+      "snapshot_path": "src/asef/ksef.py",
+      "source_sha256": "1bc1e70665ab778ef9b1f619cfff13336b5fbc21b3edd11e445c64ae72eeff0a",
+      "snapshot_sha256": "1bc1e70665ab778ef9b1f619cfff13336b5fbc21b3edd11e445c64ae72eeff0a",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/ksef_export.py",
+      "snapshot_path": "src/asef/ksef_export.py",
+      "source_sha256": "9710cabe1abb06973c161f4aece4733a1f9e952e674e53ada16502e2d53e79f7",
+      "snapshot_sha256": "9710cabe1abb06973c161f4aece4733a1f9e952e674e53ada16502e2d53e79f7",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/openclaw_bridge.py",
+      "snapshot_path": "src/asef/openclaw_bridge.py",
+      "source_sha256": "17051314a301f12b74f550188a909bbf23afe77b4941bd8bd578b0145c677962",
+      "snapshot_sha256": "17051314a301f12b74f550188a909bbf23afe77b4941bd8bd578b0145c677962",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/openclaw_cli.py",
+      "snapshot_path": "src/asef/openclaw_cli.py",
+      "source_sha256": "c658cf4cafd37dd379f90ff4dbe6b8a88f29f7552d04965c7339ae6706de7c43",
+      "snapshot_sha256": "c658cf4cafd37dd379f90ff4dbe6b8a88f29f7552d04965c7339ae6706de7c43",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/paths.py",
+      "snapshot_path": "src/asef/paths.py",
+      "source_sha256": "59db146294e09f67cb33cd113af7318c92456d9be24e01c14842c265f33bd0b4",
+      "snapshot_sha256": "59db146294e09f67cb33cd113af7318c92456d9be24e01c14842c265f33bd0b4",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/pdf_layout.py",
+      "snapshot_path": "src/asef/pdf_layout.py",
+      "source_sha256": "0e1c7fde17253ee4c8876103b6c222b6cf5115b59f91ff12838a3370a77f2502",
+      "snapshot_sha256": "0e1c7fde17253ee4c8876103b6c222b6cf5115b59f91ff12838a3370a77f2502",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/preview.py",
+      "snapshot_path": "src/asef/preview.py",
+      "source_sha256": "4adeb7d3c3f20c1f363e13f3dcf897ab4d610243b7162a91e104a55ec24d47e4",
+      "snapshot_sha256": "4adeb7d3c3f20c1f363e13f3dcf897ab4d610243b7162a91e104a55ec24d47e4",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/registries.py",
+      "snapshot_path": "src/asef/registries.py",
+      "source_sha256": "103916b7fd6030afb0f9c071ebce073dbb187f560be6f5ff8077759dcd14f211",
+      "snapshot_sha256": "103916b7fd6030afb0f9c071ebce073dbb187f560be6f5ff8077759dcd14f211",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/secure_archive.py",
+      "snapshot_path": "src/asef/secure_archive.py",
+      "source_sha256": "cbdb6a386baeba1292197cd6239dcbbc428f35aa5d797dcaf35e347c5d74e2d0",
+      "snapshot_sha256": "cbdb6a386baeba1292197cd6239dcbbc428f35aa5d797dcaf35e347c5d74e2d0",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/service.py",
+      "snapshot_path": "src/asef/service.py",
+      "source_sha256": "b3c74c6a19de9cb9948c0c5ff4bca1e5954f2519f42fb3cea17d5c90d38725f7",
+      "snapshot_sha256": "b3c74c6a19de9cb9948c0c5ff4bca1e5954f2519f42fb3cea17d5c90d38725f7",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/tax.py",
+      "snapshot_path": "src/asef/tax.py",
+      "source_sha256": "36736abfad27f710189c06bb95d6386c1ce5a4bc4e47e17c3c642d89a93e87ef",
+      "snapshot_sha256": "36736abfad27f710189c06bb95d6386c1ce5a4bc4e47e17c3c642d89a93e87ef",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/templates/invoice.html.j2",
+      "snapshot_path": "src/asef/templates/invoice.html.j2",
+      "source_sha256": "f6716da1e1d29f3acae1d566a19f6a2bf37a3d7221e0f7e4ed00486aa503c990",
+      "snapshot_sha256": "f6716da1e1d29f3acae1d566a19f6a2bf37a3d7221e0f7e4ed00486aa503c990",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xades_auth.py",
+      "snapshot_path": "src/asef/xades_auth.py",
+      "source_sha256": "9a3fe7c2b766fefe95048df0021fcfaa43da810979e08c22c021fea0bc63919e",
+      "snapshot_sha256": "9a3fe7c2b766fefe95048df0021fcfaa43da810979e08c22c021fea0bc63919e",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xsd/NOTICE.md",
+      "snapshot_path": "src/asef/xsd/NOTICE.md",
+      "source_sha256": "22601aea10a628fa1f8b30ff12ff45a20a4390e503e3b54c736c7aa56c30ca15",
+      "snapshot_sha256": "22601aea10a628fa1f8b30ff12ff45a20a4390e503e3b54c736c7aa56c30ca15",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xsd/bazowe/ElementarneTypyDanych_v10-0E.xsd",
+      "snapshot_path": "src/asef/xsd/bazowe/ElementarneTypyDanych_v10-0E.xsd",
+      "source_sha256": "5599441404a064a9d42381ea714e4480e64006937edf072d23aa9d5cc09b1bfb",
+      "snapshot_sha256": "5599441404a064a9d42381ea714e4480e64006937edf072d23aa9d5cc09b1bfb",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xsd/bazowe/KodyKrajow_v10-0E.xsd",
+      "snapshot_path": "src/asef/xsd/bazowe/KodyKrajow_v10-0E.xsd",
+      "source_sha256": "48be2a9f181d7ff80f185c62491ba12604c5cacbbe21af8e2aaaf2c585bbd214",
+      "snapshot_sha256": "48be2a9f181d7ff80f185c62491ba12604c5cacbbe21af8e2aaaf2c585bbd214",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xsd/bazowe/StrukturyDanych_v10-0E.xsd",
+      "snapshot_path": "src/asef/xsd/bazowe/StrukturyDanych_v10-0E.xsd",
+      "source_sha256": "18130c7cde7462de48ca1316113cab8b8244af8e106e1a4b9403ecb517d0577f",
+      "snapshot_sha256": "18130c7cde7462de48ca1316113cab8b8244af8e106e1a4b9403ecb517d0577f",
+      "changes": []
+    },
+    {
+      "source_path": "src/asef/xsd/schemat_FA(3)_v1-0E.xsd",
+      "snapshot_path": "src/asef/xsd/schemat_FA(3)_v1-0E.xsd",
+      "source_sha256": "31e9a4dafb09fc886c961f477feb14abd68a9ccd6f7a8351cb4f7e29c0f18ffc",
+      "snapshot_sha256": "31e9a4dafb09fc886c961f477feb14abd68a9ccd6f7a8351cb4f7e29c0f18ffc",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_bulk_xml.py",
+      "snapshot_path": "tests/test_bulk_xml.py",
+      "source_sha256": "ae6995af32bdee64e76e7ad0fa422e8fb896ea9a4e5ebe5388f6228ef9d931f9",
+      "snapshot_sha256": "ae6995af32bdee64e76e7ad0fa422e8fb896ea9a4e5ebe5388f6228ef9d931f9",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_certificate_archive.py",
+      "snapshot_path": "tests/test_certificate_archive.py",
+      "source_sha256": "d1aad6a67cbaa3d7468043896ab4426a081833e7e8c9218857f5516a0b506779",
+      "snapshot_sha256": "d1aad6a67cbaa3d7468043896ab4426a081833e7e8c9218857f5516a0b506779",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_certificate_auth.py",
+      "snapshot_path": "tests/test_certificate_auth.py",
+      "source_sha256": "cc7d0ea5849989a73a545b232ea333ecc3b1a017e226fe107bf4fcb030bd1e86",
+      "snapshot_sha256": "cc7d0ea5849989a73a545b232ea333ecc3b1a017e226fe107bf4fcb030bd1e86",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_certificates.py",
+      "snapshot_path": "tests/test_certificates.py",
+      "source_sha256": "a3a945c28def048baadc52c31a81393d328ca0aead7de602822714d7ec691acc",
+      "snapshot_sha256": "a3a945c28def048baadc52c31a81393d328ca0aead7de602822714d7ec691acc",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_gateway_credentials.py",
+      "snapshot_path": "tests/test_gateway_credentials.py",
+      "source_sha256": "361cc76196a6530929e8fd610b8e6397951e6d868633e2d6c660140cacec5611",
+      "snapshot_sha256": "361cc76196a6530929e8fd610b8e6397951e6d868633e2d6c660140cacec5611",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_installment_preview.py",
+      "snapshot_path": "tests/test_installment_preview.py",
+      "source_sha256": "eda130b64c9f4b414b4e3db662208cf8f7854a76dae501435069b6eb3d289cb2",
+      "snapshot_sha256": "eda130b64c9f4b414b4e3db662208cf8f7854a76dae501435069b6eb3d289cb2",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_ksef_export.py",
+      "snapshot_path": "tests/test_ksef_export.py",
+      "source_sha256": "6f66d12f7defa28769fefbc9f2b2f50946d8d035fc18c437f47e91c1037d315f",
+      "snapshot_sha256": "6f66d12f7defa28769fefbc9f2b2f50946d8d035fc18c437f47e91c1037d315f",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_money_precision.py",
+      "snapshot_path": "tests/test_money_precision.py",
+      "source_sha256": "40bbaab7c63574184cc7422440c2a15e4fc7ce00e8d8413b63facf2ebce6a84b",
+      "snapshot_sha256": "40bbaab7c63574184cc7422440c2a15e4fc7ce00e8d8413b63facf2ebce6a84b",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_openclaw_bridge.py",
+      "snapshot_path": "tests/test_openclaw_bridge.py",
+      "source_sha256": "3a040d9fdc87ea71212e41beeb3f2ba5c66285adb996d6129a80df8ddc691de2",
+      "snapshot_sha256": "3a040d9fdc87ea71212e41beeb3f2ba5c66285adb996d6129a80df8ddc691de2",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_openclaw_cli.py",
+      "snapshot_path": "tests/test_openclaw_cli.py",
+      "source_sha256": "68dc26d862ff4d5457b8190dc3ae4d6459faca91f48282c70fcf5fa5e639802e",
+      "snapshot_sha256": "68dc26d862ff4d5457b8190dc3ae4d6459faca91f48282c70fcf5fa5e639802e",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_portability.py",
+      "snapshot_path": "tests/test_portability.py",
+      "source_sha256": "ed362c9d0fcf54ce527a27116baf913b10248bd9baede2c9e81270f1ee0c6941",
+      "snapshot_sha256": "ed362c9d0fcf54ce527a27116baf913b10248bd9baede2c9e81270f1ee0c6941",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_private_files.py",
+      "snapshot_path": "tests/test_private_files.py",
+      "source_sha256": "ab9459f0e2d7c78898eb31b7414b0df8c667cc8c7788f15c9f9dd6ee70fcb971",
+      "snapshot_sha256": "ab9459f0e2d7c78898eb31b7414b0df8c667cc8c7788f15c9f9dd6ee70fcb971",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_registries.py",
+      "snapshot_path": "tests/test_registries.py",
+      "source_sha256": "334e1d215f0d62371fa49daca65a5d8e2676e58520ad4fd28a369b8c4bf7a5cb",
+      "snapshot_sha256": "334e1d215f0d62371fa49daca65a5d8e2676e58520ad4fd28a369b8c4bf7a5cb",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_reliability.py",
+      "snapshot_path": "tests/test_reliability.py",
+      "source_sha256": "e85873ffcb93a35831ab7034f7a6bde39a88f983b9d42c9481974f0150c8f1b0",
+      "snapshot_sha256": "e85873ffcb93a35831ab7034f7a6bde39a88f983b9d42c9481974f0150c8f1b0",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_secure_archive.py",
+      "snapshot_path": "tests/test_secure_archive.py",
+      "source_sha256": "73d8ee9aa5cbb0edd88d7d0cc58f24e75a45d6ca1790c41ef1cd23529f3c1d30",
+      "snapshot_sha256": "73d8ee9aa5cbb0edd88d7d0cc58f24e75a45d6ca1790c41ef1cd23529f3c1d30",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_workflow.py",
+      "snapshot_path": "tests/test_workflow.py",
+      "source_sha256": "6e2b3f5c13ca5ecac1924a2408315f89ad4593d3276a823357a0e968c181732b",
+      "snapshot_sha256": "6e2b3f5c13ca5ecac1924a2408315f89ad4593d3276a823357a0e968c181732b",
+      "changes": []
+    },
+    {
+      "source_path": "tests/test_xades_auth.py",
+      "snapshot_path": "tests/test_xades_auth.py",
+      "source_sha256": "ec64d9f6552fa1434a4d029915c23e3c80c962f447cfeb1d66516658e27c6fe2",
+      "snapshot_sha256": "ec64d9f6552fa1434a4d029915c23e3c80c962f447cfeb1d66516658e27c6fe2",
+      "changes": []
+    },
+    {
+      "source_path": "uv.lock",
+      "snapshot_path": "uv.lock",
+      "source_sha256": "3093b4e611aa640083c8f1aefdbf291a1fb36e8256247b862c301480a02c9e53",
+      "snapshot_sha256": "3093b4e611aa640083c8f1aefdbf291a1fb36e8256247b862c301480a02c9e53",
+      "changes": []
+    }
+  ],
+  "excluded_files": [
+    {
+      "source_path": ".pytest_cache/.gitignore",
+      "reason": "Generated pytest cache"
+    },
+    {
+      "source_path": ".pytest_cache/CACHEDIR.TAG",
+      "reason": "Generated pytest cache"
+    },
+    {
+      "source_path": ".pytest_cache/README.md",
+      "reason": "Generated pytest cache"
+    },
+    {
+      "source_path": ".pytest_cache/v/cache/nodeids",
+      "reason": "Generated pytest cache"
+    }
+  ]
+}

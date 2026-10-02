@@ -1,6 +1,6 @@
-# ACLI-KSeF plan realizacji
+# ACLT-KSeF plan realizacji
 
-Wersja 0.4. Data 2 października 2026. Status: projekt do przeglądu.
+Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
@@ -8,7 +8,7 @@ Plan prowadzi od uzgodnienia [PRD](PRD.md) i [specyfikacji](SPECYFIKACJA.md) do 
 
 ## Stan prac
 
-Dokumenty PRD, specyfikacja i plan są w wersji 0.4. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLI-KSeF, autorstwo Szymona Gałki, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
+Dokumenty PRD, specyfikacja i plan są w wersji 0.5. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLT-KSeF, autorstwo Szymona Gałki, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
 
 | Etap | Rezultat | Zależność | Stan |
 | --- | --- | --- | --- |
@@ -21,6 +21,8 @@ Dokumenty PRD, specyfikacja i plan są w wersji 0.4. Projekt ma lokalne repozyto
 | M6 | Kontrolowane uruchomienie PROD | Odbiór TEST i DEMO, konfiguracja i uzgodnione operacje PROD | Zaplanowany |
 
 Etap uważa się za odebrany po uzyskaniu opisanych dowodów. Zakończenie prac lokalnych bez dostępu do usługi jest raportowane jako zakończenie części lokalnej, nie jako pełny odbiór integracji.
+
+[Materiały źródłowego acli-ksef](materials/acli-ksef/README.md) stanowią dodatkową inspirację. [Analiza](materials/acli-ksef/ANALIZA.md) wiąże przydatne rozwiązania i scenariusze testowe z etapami M1–M5. Obecność kodu w tym katalogu nie oznacza wykonania żadnego etapu implementacji ACLT-KSeF.
 
 ## M0 Uzgodnienie dokumentów
 
@@ -40,7 +42,7 @@ Rezultat: skill zawiera działające CLI, a token pozwala zalogować się do wyb
 
 Prace:
 
-1. Przygotować krótki `SKILL.md` z mapą wszystkich dostępnych zadań, launcher `scripts/acli-ksef`, moduły Pythona, `pyproject.toml` i przypięte zależności. Cel instrukcji wejściowej to do 600 słów. Metadane, skill, pomoc i wersja CLI używają nazwy ACLI-KSeF oraz wskazują Szymona Gałkę jako autora projektu. Metadane paczki deklarują `GPL-3.0-only`, a wydanie zawiera pełny tekst LICENSE.
+1. Przygotować krótki `SKILL.md` z mapą wszystkich dostępnych zadań, launcher `scripts/aclt-ksef`, moduły Pythona, `pyproject.toml` i przypięte zależności. Cel instrukcji wejściowej to do 600 słów. Metadane, skill, pomoc i wersja CLI używają nazwy ACLT-KSeF oraz wskazują Szymona Gałkę jako autora projektu. Metadane paczki deklarują `GPL-3.0-only`, a wydanie zawiera pełny tekst LICENSE.
 2. Dodać `doctor`, `describe`, profile, wspólny kontrakt JSON z `next_action` i obsługę błędów argumentów oraz plików. Opis komendy i parser korzystają z tych samych definicji.
 3. Wprowadzić zewnętrzne katalogi konfiguracji i danych, SQLite oraz chroniony magazyn poświadczeń i stanu logowania.
 4. Zapisem źródła, wersji i SHA-256 przypiąć używany kontrakt API; sprawdzić wymagane operacje właściwego środowiska.
@@ -71,7 +73,7 @@ Prace:
 3. Dodać osobne punkty kontynuacji per rola, prawidłowe granice dla paczek pełnych i obciętych oraz deduplikację.
 4. Utrwalać postęp po zapisaniu paczki; wznowić przerwany eksport z istniejącej referencji.
 5. Dodać `invoices list`, `show`, `fetch` oraz eksport XML, HTML i CSV. `list --refresh` łączy synchronizację i filtrowanie. Listy pokazują aktualność, rolę i kompletność zbioru, domyślnie do 20 rekordów.
-6. Przypiąć schemy FA(3) z importami i przygotować podgląd odczytanego XML z brandingiem ACLI-KSeF oraz informacją o autorze projektu; zakres odczytu może być szerszy od przyszłego generatora.
+6. Przypiąć schemy FA(3) z importami i przygotować podgląd odczytanego XML z brandingiem ACLT-KSeF oraz informacją o autorze projektu; zakres odczytu może być szerszy od przyszłego generatora.
 7. Sprawdzić workflow przez instrukcję skilla: synchronizacja, wyszukiwanie, pokazanie dokumentu i przekazanie ścieżki artefaktu.
 
 Odbiór:
@@ -133,7 +135,7 @@ Prace:
 1. Zweryfikować wersję OpenClaw, dystrybucję i architekturę Linuxa, użytkownika procesu oraz faktyczne środowisko `exec`.
 2. Zainstalować paczkę i zależności na serwerze, dopasować ścieżki i sprawdzić widoczność skilla oraz dostęp do CLI, danych i poświadczeń.
 3. Zrealizować i sprawdzić logowanie certyfikatem uwierzytelniającym, w tym błędy ważności i uprawnień. Udokumentować wynik wybranego stosu XAdES.
-4. Dodać PDF z polskimi znakami, brandingiem ACLI-KSeF, informacją o autorze projektu i kodem QR właściwego środowiska dla przyjętych dokumentów. Sprawdzić długie i wielostronicowe faktury oraz korekty.
+4. Dodać PDF z polskimi znakami, brandingiem ACLT-KSeF, informacją o autorze projektu i kodem QR właściwego środowiska dla przyjętych dokumentów. Sprawdzić długie i wielostronicowe faktury oraz korekty.
 5. Dodać spójną kopię danych i manifest, odtworzenie do nowego katalogu oraz rozliczenie operacji zachowanych w kopii.
 6. Sprawdzić restart, aktualizację paczki z zachowaniem danych i odtworzenie poprzedniej wersji programu zgodnie z wersją bazy.
 7. Sprawdzić realne zadania w nowej sesji agenta OpenClaw, obejmujące odczyt, przygotowanie faktury, korektę, braki danych i odzyskiwanie operacji. Mierzyć poprawność, liczbę wywołań i ilość kontekstu. Sprawdzić logowanie i uprawnienia na DEMO, gdy operator udostępni poświadczenia.
