@@ -32,6 +32,8 @@ Nazwa produktu to **ACLT-KSeF**, a identyfikator skilla, paczki i CLI to `aclt-k
 
 **Autor i twórca projektu: Szymon Gałka.**
 
+Kontakt: [kontakt@szymongalka.dev](mailto:kontakt@szymongalka.dev).
+
 © 2026 Szymon Gałka.
 
 ## Licencja

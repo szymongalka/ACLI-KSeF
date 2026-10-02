@@ -1,6 +1,6 @@
 # acli-ksef / ASEF — materiał inspiracyjny
 
-Ten katalog przechowuje dodatkowy materiał do projektowania **ACLT-KSeF**. Zgodnie z ustaleniem użytkownika źródłowy `acli-ksef` służy jako inspiracja. Snapshot zawiera historyczny kod i dokumentację ASEF autorstwa Szymona Gałki. Nie jest działającym skillem ACLT-KSeF ani ukończonym etapem jego implementacji.
+Ten katalog przechowuje dodatkowy materiał do projektowania **ACLT-KSeF**. Zgodnie z ustaleniem użytkownika źródłowy `acli-ksef` służy jako inspiracja. Snapshot zawiera historyczny kod i dokumentację ASEF. Autor: **Szymon Gałka**. Nie jest działającym skillem ACLT-KSeF ani ukończonym etapem jego implementacji.
 
 Przy projektowaniu konkretnego modułu zacznij od [analizy](ANALIZA.md), a następnie otwórz wskazane pliki. Wymagania ACLT-KSeF określają [PRD](../../PRD.md), [specyfikacja](../../SPECYFIKACJA.md) i [plan](../../PLAN.md).
 
@@ -38,6 +38,6 @@ Pominięto cztery pliki `.pytest_cache/`. Nie importowano innych wersji, plików
 
 ## Autorstwo, licencje i dowody działania
 
-Autor projektu źródłowego i ACLT-KSeF: **Szymon Gałka**. Publikacja następuje w repozytorium ACLT-KSeF z licencją [GPL-3.0-only](../../LICENSE). Zasoby zewnętrzne zachowują własne warunki, w tym [informację o schematach MF](snapshot/THIRD_PARTY_NOTICES.md) i [pełną licencję MIT tych schematów](snapshot/src/asef/xsd/NOTICE.md).
+Autor projektu źródłowego i ACLT-KSeF: **Szymon Gałka**. Kontakt: [kontakt@szymongalka.dev](mailto:kontakt@szymongalka.dev). Publikacja następuje w repozytorium ACLT-KSeF z licencją [GPL-3.0-only](../../LICENSE). Zasoby zewnętrzne zachowują własne warunki, w tym [informację o schematach MF](snapshot/THIRD_PARTY_NOTICES.md) i [pełną licencję MIT tych schematów](snapshot/src/asef/xsd/NOTICE.md).
 
 Przy imporcie sprawdzono integralność plików, składnię Pythona i zakres publikowanych danych. Nie instalowano zależności ani nie uruchamiano testów funkcjonalnych lub połączeń z KSeF. Twierdzenia o wcześniejszych testach zawarte w historycznym README pozostają twierdzeniami dokumentacji źródłowej, a nie wynikiem odbioru ACLT-KSeF.

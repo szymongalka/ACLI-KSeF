@@ -4,11 +4,13 @@ Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
+Kontakt: [kontakt@szymongalka.dev](mailto:kontakt@szymongalka.dev).
+
 Plan prowadzi od uzgodnienia [PRD](PRD.md) i [specyfikacji](SPECYFIKACJA.md) do skilla, którego cały zakres agent sprawnie obsługuje przez zawarte CLI w Pythonie na Linuxie z OpenClaw. Każdy etap obejmuje użyteczność dla agenta oraz poprawność wykonania. Daty realizacji zależą od potwierdzonego zakresu oraz dostępności serwera i poświadczeń.
 
 ## Stan prac
 
-Dokumenty PRD, specyfikacja i plan są w wersji 0.5. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLT-KSeF, autorstwo Szymona Gałki, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
+Dokumenty PRD, specyfikacja i plan są w wersji 0.5. Projekt ma lokalne repozytorium Git na gałęzi `main`, README, pełny tekst GNU GPLv3 w pliku LICENSE oraz reguły ignorowania lokalnych danych i poświadczeń. Uzgodniono nazwę ACLT-KSeF, podpis „Autor projektu: Szymon Gałka”, kontakt `kontakt@szymongalka.dev`, licencję `GPL-3.0-only`, język Python, środowisko Linux z OpenClaw, pełny przepływ pobierania, wystawiania oraz korekt i priorytet szybkiej obsługi przez agenta. Szczegóły proponowanej architektury i pierwszych wariantów faktur pozostają do przeglądu. Implementacja skilla i CLI rozpocznie się po zamknięciu M0.
 
 | Etap | Rezultat | Zależność | Stan |
 | --- | --- | --- | --- |
@@ -42,7 +44,7 @@ Rezultat: skill zawiera działające CLI, a token pozwala zalogować się do wyb
 
 Prace:
 
-1. Przygotować krótki `SKILL.md` z mapą wszystkich dostępnych zadań, launcher `scripts/aclt-ksef`, moduły Pythona, `pyproject.toml` i przypięte zależności. Cel instrukcji wejściowej to do 600 słów. Metadane, skill, pomoc i wersja CLI używają nazwy ACLT-KSeF oraz wskazują Szymona Gałkę jako autora projektu. Metadane paczki deklarują `GPL-3.0-only`, a wydanie zawiera pełny tekst LICENSE.
+1. Przygotować krótki `SKILL.md` z mapą wszystkich dostępnych zadań, launcher `scripts/aclt-ksef`, moduły Pythona, `pyproject.toml` i przypięte zależności. Cel instrukcji wejściowej to do 600 słów. Metadane, skill, pomoc i wersja CLI używają nazwy ACLT-KSeF oraz podpisu „Autor projektu: Szymon Gałka”, bez odmiany nazwiska; metadane, skill i pomoc zawierają kontakt `kontakt@szymongalka.dev`. Metadane paczki deklarują `GPL-3.0-only`, a wydanie zawiera pełny tekst LICENSE.
 2. Dodać `doctor`, `describe`, profile, wspólny kontrakt JSON z `next_action` i obsługę błędów argumentów oraz plików. Opis komendy i parser korzystają z tych samych definicji.
 3. Wprowadzić zewnętrzne katalogi konfiguracji i danych, SQLite oraz chroniony magazyn poświadczeń i stanu logowania.
 4. Zapisem źródła, wersji i SHA-256 przypiąć używany kontrakt API; sprawdzić wymagane operacje właściwego środowiska.

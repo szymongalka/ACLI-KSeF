@@ -4,6 +4,8 @@ Wersja 0.5. Data 2 października 2026. Status: projekt do przeglądu.
 
 Autor projektu: **Szymon Gałka**.
 
+Kontakt: [kontakt@szymongalka.dev](mailto:kontakt@szymongalka.dev).
+
 Specyfikacja opisuje wykonanie wymagań z [PRD](PRD.md). Priorytetem jest sprawna obsługa wszystkich funkcji przez agenta: krótka instrukcja, spójne operacje i wyniki pozwalające od razu wybrać kolejny krok. Jeden instalowany katalog skilla zawiera własne CLI w Pythonie. OpenClaw uruchamia polecenia, a CLI zachowuje stan operacji i komunikuje się z KSeF. Etapy opisuje [plan](PLAN.md).
 
 ## Nazewnictwo i autorstwo
@@ -12,17 +14,18 @@ Specyfikacja opisuje wykonanie wymagań z [PRD](PRD.md). Priorytetem jest sprawn
 | --- | --- |
 | Nazwa prezentowana użytkownikowi | ACLT-KSeF |
 | Autor projektu | Szymon Gałka |
+| Kontakt autora | `kontakt@szymongalka.dev` |
 | Licencja projektu | GNU GPLv3, SPDX `GPL-3.0-only` |
 | Identyfikator skilla i paczki Pythona | `aclt-ksef` |
 | Launcher CLI w paczce | `scripts/aclt-ksef` |
 | Moduł Pythona | `aclt_ksef` |
 | Prefiks zmiennych środowiskowych | `ACLT_KSEF_` |
 
-`README.md` i `SKILL.md` zawierają nazwę produktu oraz informację o autorze. Metadane `pyproject.toml` wskazują nazwę paczki i autora. `--help` i `--version` przedstawiają ACLT-KSeF oraz Szymona Gałkę; tryb maszynowy nie dodaje banera do wyników JSON. `doctor` zwraca nazwę, wersję i autora w metadanych instalacji.
+`README.md` i `SKILL.md` zawierają nazwę produktu, podpis „Autor projektu: Szymon Gałka” oraz adres `kontakt@szymongalka.dev`. Nazwisko w informacjach o autorstwie pozostaje w tej formie, bez odmiany. Metadane `pyproject.toml` wskazują nazwę paczki, autora i adres kontaktowy. `--help` i `--version` przedstawiają ACLT-KSeF oraz podpis „Autor projektu: Szymon Gałka”; pomoc zawiera również kontakt. Tryb maszynowy nie dodaje banera do wyników JSON. `doctor` zwraca nazwę, wersję, autora i kontakt w metadanych instalacji.
 
 Kod i dokumentacja projektu korzystają z GNU GPLv3 (`GPL-3.0-only`). Metadane przyszłej paczki Pythona wskazują ten identyfikator SPDX oraz plik [LICENSE](LICENSE). Pełny tekst licencji jest częścią paczki skilla i archiwów wydań; użyte zależności i zasoby zachowują swoje wymagane oznaczenia.
 
-Podglądy HTML i PDF zawierają dyskretną informację „Wygenerowano przez ACLT-KSeF · Autor projektu: Szymon Gałka”. Informacja znajduje się poza danymi sprzedawcy i nabywcy. Branding nie dopisuje pól do faktury FA(3), nie zmienia oryginalnych bajtów XML ani UPO. Przy wykorzystaniu cudzych zależności i zasobów zachowujemy wymagane przez nie informacje o autorach i licencjach.
+Podglądy HTML i PDF zawierają dyskretną informację „Wygenerowano przez ACLT-KSeF · Autor projektu: Szymon Gałka · kontakt@szymongalka.dev”. Informacja znajduje się poza danymi sprzedawcy i nabywcy. Branding nie dopisuje pól do faktury FA(3), nie zmienia oryginalnych bajtów XML ani UPO. Przy wykorzystaniu cudzych zależności i zasobów zachowujemy wymagane przez nie informacje o autorach i licencjach.
 
 ## Architektura i odpowiedzialności
 
