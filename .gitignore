@@ -1,0 +1,39 @@
+# Środowisko Pythona i wyniki narzędzi
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Lokalna konfiguracja, dane faktur i poświadczenia
+.env
+.env.*
+!.env.example
+!.env.*.example
+config/
+data/
+runtime/
+backups/
+secrets/
+credentials/
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+*.db-wal
+*.db-shm
+*.key
+*.pem
+*.p12
+*.pfx
+*.log
+
+# Pliki systemowe
+.DS_Store
